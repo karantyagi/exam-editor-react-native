@@ -17,7 +17,6 @@ const Icons = () => (
       onPress={() =>
         Alert.alert('hello')}
     />
-
   </View>
 )
 export default Icons

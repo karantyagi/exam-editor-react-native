@@ -1,14 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View,ScrollView  } from 'react-native';
+import { Divider } from 'react-native-elements'
+
 import FixedHeader from './elements/FixedHeader'
+import TextHeadings from './elements/TextHeadings'
+import Icons from './elements/Icons'
+import Exam from './elements/Exam'
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <FixedHeader/>
-        <Text>Start building...</Text>
-      </View>
+            <View>
+                <FixedHeader/>
+                <View style={{padding:20}}>
+                    <Exam/>
+                    <Divider/>
+                    <TextHeadings/>
+
+
+                    <Divider/>
+                    <Divider/>
+
+                    <Icons/>
+
+
+                </View>
+
+            </View>
+
     );
   }
 }
