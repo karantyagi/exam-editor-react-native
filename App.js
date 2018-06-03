@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import FixedHeader from './elements/FixedHeader'
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hello world App text changed!</Text>
+        <FixedHeader/>
+        <Text>Start building...</Text>
       </View>
     );
   }
