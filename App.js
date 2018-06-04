@@ -6,27 +6,24 @@ import FixedHeader from './elements/FixedHeader'
 import TextHeadings from './elements/TextHeadings'
 import Icons from './elements/Icons'
 import Exam from './elements/Exam'
+import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupChooser'
 
 export default class App extends React.Component {
   render() {
     return (
-            <View>
-                <FixedHeader/>
-                <View style={{padding:20}}>
-                    <Exam/>
-                    <Divider/>
-                    <TextHeadings/>
+        <View>
+            <FixedHeader/>
 
+            <QuestionTypeButtonGroupChooser/>
+            <Exam/>
 
-                    <Divider/>
-                    <Divider/>
-
-                    <Icons/>
-
-
-                </View>
-
+            <View style={{padding:20}}>
+                <TextHeadings/>
+                <Divider/>
+                <Icons/>
             </View>
+
+        </View>
 
     );
   }
