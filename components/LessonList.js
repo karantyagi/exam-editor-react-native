@@ -27,7 +27,8 @@ class LessonList extends Component {
         (lesson, index) => (
           <ListItem
             onPress={() => this.props.navigation
-              .navigate("TopicList", {lessonId: lesson.id})}
+              .navigate("TopicList", {courseId:
+                  this.state.courseId, moduleId: module.id,lessonId: lesson.id})}
             key={index}
             title={lesson.title}/>))}
       </View>
