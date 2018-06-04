@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View,ScrollView  } from 'react-native';
+import { StyleSheet, View, ScrollView  } from 'react-native';
 import { Divider } from 'react-native-elements'
 
 import FixedHeader from './elements/FixedHeader'
@@ -7,6 +7,9 @@ import TextHeadings from './elements/TextHeadings'
 import Icons from './elements/Icons'
 import Exam from './elements/Exam'
 import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupChooser'
+import QuestionTypePicker from './elements/QuestionTypePicker'
+
+import {Picker} from 'react-native'
 
 export default class App extends React.Component {
   render() {
@@ -15,6 +18,7 @@ export default class App extends React.Component {
             <FixedHeader/>
 
             <QuestionTypeButtonGroupChooser/>
+            <QuestionTypePicker/>
             <Exam/>
 
             <View style={{padding:20}}>
