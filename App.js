@@ -10,8 +10,6 @@ import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupCh
 import QuestionTypePicker from './elements/QuestionTypePicker'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
 
-
-
 import { createStackNavigator } from 'react-navigation'
 
 class Home extends Component {
@@ -28,21 +26,13 @@ class Home extends Component {
             <ScrollView>
                 <View>
                     <FixedHeader/>
-
-                    <Picker>
-                    <Button title="Courses"
-                            onPress={() => this.props.navigation
-                                .navigate('CourseList') } />
-                    <Button title="Go to Screen X"
-                            onPress={() => this.props.navigation
-                                .navigate('ScreenX') } />
                     <Button title="Go to Screen A"
                             onPress={() => this.props.navigation
                                 .navigate('ScreenA') } />
                     <Button title="Go to Screen B"
                             onPress={() => this.props.navigation
                                 .navigate('ScreenB') } />
-                    </Picker>
+
                     <QuestionTypeButtonGroupChooser/>
                     {/*<QuestionTypePicker/>*/}
                     <Text>{"\n"}</Text>
@@ -105,45 +95,5 @@ const App = createStackNavigator({
     ScreenA: {screen: ScreenA},
     ScreenB: {screen: ScreenB}
 });
-//
-// export default class App extends React.Component {
-//   render() {
-//     return (
-//         <ScrollView>
-//             <View>
-//                 <FixedHeader/>
-//
-//                 <QuestionTypeButtonGroupChooser/>
-//                 {/*<QuestionTypePicker/>*/}
-//                 <Text>{"\n"}</Text>
-//                 <TrueFalseQuestionEditor/>
-//                 <Text>{"\n"}</Text>
-//                 <Exam/>
-//
-//                 {/*<View style={{padding:20}}>*/}
-//                 {/*<TextHeadings/>*/}
-//                 {/*<Divider/>*/}
-//                 {/*<Icons/>*/}
-//                 {/*</View>*/}
-//
-//             </View>
-//         </ScrollView>
-//
-//     );
-//   }
-// }
-
-
-
-//
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
 
 export default App;
