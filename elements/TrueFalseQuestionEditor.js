@@ -45,6 +45,17 @@ class TrueFalseQuestionEditor extends React.Component {
                     Description is required
                 </FormValidationMessage>
 
+                <FormLabel>Points</FormLabel>
+                <FormInput
+                    placeholder='Enter points for question'
+                    onChangeText={
+                        text => this.updateForm({points: text})
+                    }/>
+                <FormValidationMessage>
+                    Points are required
+                </FormValidationMessage>
+                <Text> Points: {this.state.points}</Text>
+
                 <CheckBox onPress={() => this.updateForm({isTrue: !this.state.isTrue})}
                           checked={this.state.isTrue} title='The answer is true'/>
 

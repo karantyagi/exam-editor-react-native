@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View, ScrollView, Text  } from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, View, ScrollView, Text, Button, Picker  } from 'react-native';
 import { Divider } from 'react-native-elements'
 
 import FixedHeader from './elements/FixedHeader'
@@ -11,38 +11,139 @@ import QuestionTypePicker from './elements/QuestionTypePicker'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
 
 
-export default class App extends React.Component {
-  render() {
-    return (
-        <ScrollView>
-            <View>
-                <FixedHeader/>
 
-                <QuestionTypeButtonGroupChooser/>
-                {/*<QuestionTypePicker/>*/}
-                <Text>{"\n"}</Text>
-                <TrueFalseQuestionEditor/>
-                <Text>{"\n"}</Text>
-                <Exam/>
+import { createStackNavigator } from 'react-navigation'
 
-                {/*<View style={{padding:20}}>*/}
-                {/*<TextHeadings/>*/}
-                {/*<Divider/>*/}
-                {/*<Icons/>*/}
-                {/*</View>*/}
+class Home extends Component {
+    static navigationOptions = {
+        title: 'Home'
+    }
 
-            </View>
-        </ScrollView>
+    constructor(props) {
+        super(props)
+    }
 
-    );
-  }
+    render(){
+        return(
+            <ScrollView>
+                <View>
+                    <FixedHeader/>
+
+                    <Picker>
+                    <Button title="Courses"
+                            onPress={() => this.props.navigation
+                                .navigate('CourseList') } />
+                    <Button title="Go to Screen X"
+                            onPress={() => this.props.navigation
+                                .navigate('ScreenX') } />
+                    <Button title="Go to Screen A"
+                            onPress={() => this.props.navigation
+                                .navigate('ScreenA') } />
+                    <Button title="Go to Screen B"
+                            onPress={() => this.props.navigation
+                                .navigate('ScreenB') } />
+                    </Picker>
+                    <QuestionTypeButtonGroupChooser/>
+                    {/*<QuestionTypePicker/>*/}
+                    <Text>{"\n"}</Text>
+                    <TrueFalseQuestionEditor/>
+                    <Text>{"\n"}</Text>
+                    <Exam/>
+
+                    {/*<View style={{padding:20}}>*/}
+                    {/*<TextHeadings/>*/}
+                    {/*<Divider/>*/}
+                    {/*<Icons/>*/}
+                    {/*</View>*/}
+                </View>
+            </ScrollView>
+        )
+    }
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+
+class ScreenA extends React.Component {
+    static navigationOptions = {title: "Screen A"}
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <View>
+                <Text h1>Screen A</Text>
+                <Button title="Go Home"
+                        onPress={() =>this.props
+                            .navigation
+                            .goBack()} />
+            </View>
+        )
+    }
+}
+
+class ScreenB extends React.Component {
+    static navigationOptions = {title: "Screen B"}
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <View>
+                <Text h1>Screen B</Text>
+                <Button title="Go Home"
+                        onPress={() =>this.props
+                            .navigation
+                            .goBack()} />
+            </View>
+        )
+    }
+}
+
+const App = createStackNavigator({
+    Home: {screen: Home},
+    ScreenA: {screen: ScreenA},
+    ScreenB: {screen: ScreenB}
 });
+//
+// export default class App extends React.Component {
+//   render() {
+//     return (
+//         <ScrollView>
+//             <View>
+//                 <FixedHeader/>
+//
+//                 <QuestionTypeButtonGroupChooser/>
+//                 {/*<QuestionTypePicker/>*/}
+//                 <Text>{"\n"}</Text>
+//                 <TrueFalseQuestionEditor/>
+//                 <Text>{"\n"}</Text>
+//                 <Exam/>
+//
+//                 {/*<View style={{padding:20}}>*/}
+//                 {/*<TextHeadings/>*/}
+//                 {/*<Divider/>*/}
+//                 {/*<Icons/>*/}
+//                 {/*</View>*/}
+//
+//             </View>
+//         </ScrollView>
+//
+//     );
+//   }
+// }
+
+
+
+//
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
+
+
+export default App;
