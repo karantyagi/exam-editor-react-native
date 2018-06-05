@@ -7,6 +7,7 @@ class WidgetList extends Component {
   constructor(props) {
     super(props)
     this.state = {
+        topicId: 0,
         selectedWidgetTypeIndex: 0,
         widgets: [],
         lessonId: 1,
@@ -18,6 +19,23 @@ class WidgetList extends Component {
   }
 
     selectWidgetType = (newWidgetTypeIndex) => {
+      if(newWidgetTypeIndex == 0){
+          fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/assignment")
+              .then(response => (response.json()))
+              .then(widgets => this.setState({widgets}))
+              .catch((error)=>{
+                  alert(error.message);
+              });
+      }
+      else{
+          fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/exam")
+              .then(response => (response.json()))
+              .then(widgets => this.setState({widgets}))
+              .catch((error)=>{
+                  alert(error.message);
+              });
+      }
+
         this.setState({
             selectedWidgetTypeIndex: newWidgetTypeIndex
         })
@@ -26,8 +44,11 @@ class WidgetList extends Component {
 
   componentDidMount() {
     const {navigation} = this.props;
-    const topicId = navigation.getParam("topicId")
-    fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/widget")
+    const topicId = navigation.getParam("topicId");
+      this.setState({
+          topicId: topicId
+      })
+    fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/assignment")
       .then(response => (response.json()))
       .then(widgets => this.setState({widgets}))
         .catch((error)=>{
@@ -52,20 +73,31 @@ class WidgetList extends Component {
 
             {/*<Text> Print here: {this.state.selectedWidgetTypeIndex}</Text>*/}
 
-
             <Text>{'\n'}</Text>
 
-            {this.state.selectedWidgetTypeIndex == 0 && this.state.widgets.map(
-                (widget, index) => (
-                    <ListItem
-                        onPress={() => this.props.navigation
-                            .navigate("AssignmentList", {examId: widget.id})}
-                        key={index}
-                        subtitle={widget.description}
-                        title={widget.title}/>))}
+            {/*{this.state.selectedWidgetTypeIndex == 0 && this.state.widgets.map(*/}
+                {/*(widget, index) => (*/}
+                    {/*<ListItem*/}
+                        {/*onPress={() => this.props.navigation*/}
+                            {/*.navigate("AssignmentList", {examId: widget.id})}*/}
+                        {/*key={index}*/}
+                        {/*subtitle={widget.description}*/}
+                        {/*title={widget.title}/>))}*/}
+
+            {this.state.selectedWidgetTypeIndex == 0 &&
+            this.state.widgets.filter(widget => {return widget.widgetType !== 'Exam' })
+                .map(
+                    (widget, index) => (
+                        <ListItem
+                            onPress={() => this.props.navigation
+                                .navigate("AssignmentList", {examId: widget.id})}
+                            key={index}
+                            subtitle={widget.description}
+                            title={widget.title}/>))}
 
 
-      {this.state.selectedWidgetTypeIndex == 1 && this.state.widgets.map(
+      {this.state.selectedWidgetTypeIndex == 1 &&
+      this.state.widgets.filter(widget => {return widget.widgetType !== 'Assignment' }).map(
         (widget, index) => (
           <ListItem
             onPress={() => this.props.navigation
@@ -83,6 +115,8 @@ class WidgetList extends Component {
                 onPress={() =>{
                     if(this.state.selectedWidgetTypeIndex == 0){
                         Alert.alert('Navigate to ADD ASSIGNMENT WIDGET SCREEN, and add new Assignment to DB');
+                        this.props.navigation
+                            .navigate("Assignment", {topicId: this.state.topicId })
                     }
                     else{
                         Alert.alert('Navigate to ADD NEW EXAM SCREEN , and add new exam to DB with Qs');

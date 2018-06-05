@@ -15,6 +15,7 @@ import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import TopicList from './components/TopicList'
 import AssignmentList from './components/AssignmentList'
+import Assignment from './elements/Assignment'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
 
@@ -42,9 +43,9 @@ class Home extends Component {
                             onPress={() => this.props.navigation
                                 .navigate('ScreenA') } />
 
-                    <Button title="Go to Screen B"
-                            onPress={() => this.props.navigation
-                                .navigate('ScreenB') } />
+                    {/*<Button title="Go to Screen B"*/}
+                            {/*onPress={() => this.props.navigation*/}
+                                {/*.navigate('ScreenB') } />*/}
 
                     <QuestionTypeButtonGroupChooser/>
                     {/*<QuestionTypePicker/>*/}
@@ -111,6 +112,7 @@ const App = createStackNavigator({
     TopicList: {screen: TopicList},
     AssignmentList: {screen: AssignmentList},
     WidgetList: {screen: WidgetList},
+    Assignment: {screen: Assignment},
     QuestionList: {screen: QuestionList},
     ScreenA: {screen: ScreenA},
     ScreenB: {screen: ScreenB}
