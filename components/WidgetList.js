@@ -122,7 +122,7 @@ class WidgetList extends Component {
                                     type='font-awesome'
                                     raised
                                     color={'#f50'}
-                                    onPress={() => alert('Delete !')}
+                                    onPress={() => alert('Delete assignment/widget ?? by ID: '+widget.id)}
                                 />}
                             />
                     ))}
@@ -136,7 +136,21 @@ class WidgetList extends Component {
               .navigate("QuestionList", {examId: widget.id})}
             key={index}
             subtitle={widget.description}
-            title={widget.title}/>))}
+            title={widget.title}
+            rightIcon={
+                <Icon
+                    key={'k'+index.toString()}
+                    name={'times'}
+                    size={20}
+                    type='font-awesome'
+                    raised
+                    color={'#f50'}
+                    onPress={() => alert('Delete exam/widget ?? by ID: '+widget.id)}
+                />}
+          />))}
+
+
+
             <Text>{'\n'}</Text>
             <Icon
                 raised

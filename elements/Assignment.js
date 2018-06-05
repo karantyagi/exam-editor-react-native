@@ -15,7 +15,7 @@ class Assignment extends React.Component {
                 {
                     title: '',
                     description: '',
-                    points: null,
+                    points: '',
                     widgetOrder: 1,
                     widgetType: 'Assignment'
                 }
@@ -37,12 +37,22 @@ class Assignment extends React.Component {
 
     addAssignment = () => {
 
-        if(this.state.assignment.points === null ||
+        if(this.state.assignment.points === "" ||
             this.state.assignment.title === "" ||
             this.state.assignment.description === ""){
             alert("Some fields are empty !")
         }
         else{
+            this.setState(
+                {assignment:
+                        {
+                            title: this.state.assignment.text,
+                            description: this.state.assignment.description,
+                            points: parseInt(this.state.assignment.points),
+                            widgetOrder: this.state.assignment.widgetOrder,
+                            widgetType: this.state.assignment.widgetType
+                        }});
+
             alert("Assignment Added Successfully !\n\nTitle: "+this.state.assignment.title+"\n"+
                 "Desc: "+this.state.assignment.description+"\n"+
                 "Points: "+this.state.assignment.points);
@@ -97,7 +107,8 @@ class Assignment extends React.Component {
                     <View>
                         <FormLabel>Title</FormLabel>
                         <FormInput
-                            placeholder='Assignment title '
+                            placeholder='Assignment title'
+                            value={this.state.assignment.title}
                             onChangeText={
                                 text => this.updateForm(
                                     {assignment:
@@ -118,6 +129,7 @@ class Assignment extends React.Component {
 
                         <FormLabel>Description</FormLabel>
                         <FormInput
+                            value={this.state.assignment.description}
                             placeholder='Assignment Description'
                             onChangeText={
                                 text => this.updateForm(
@@ -136,9 +148,12 @@ class Assignment extends React.Component {
                             Description is required
                         </FormValidationMessage>}
 
+
+
                         <FormLabel>Points</FormLabel>
                         <FormInput
                             placeholder='Enter points for Assignment'
+                            value={this.state.assignment.points}
                             onChangeText={
                                 text => this.updateForm(
                                     {assignment:
@@ -152,7 +167,7 @@ class Assignment extends React.Component {
 
                                     })
                             }/>
-                        {this.state.assignment.points === null &&
+                        {this.state.assignment.points === "" &&
                         <FormValidationMessage>
                             Points are required
                         </FormValidationMessage>}
@@ -182,40 +197,58 @@ class Assignment extends React.Component {
                     {this.state.preview &&
                     <View>
                         {/*<Text style={{textAlign: 'center',color: 'gray', fontSize: 18 }}>Preview</Text>*/}
-                        <Text style={{padding: 10, fontSize: 18}}>Assignment ORDER - TITLE     POINTS?{this.state.title}</Text>
-                        <Text style={{padding: 10, fontSize: 15}} >Description para : {this.state.description}</Text>
-                        <Text  style={{padding: 10, fontSize: 15}}> Points: {this.state.points}</Text>
+                        <View style={{paddingLeft:15}}>
+                            <Text h3>
+                                {this.state.assignment.title}</Text>
+                        </View>
+                        <View style={{paddingLeft:15}}>
+                            <Text style={{fontSize: 16}}>
+                                {this.state.assignment.description}</Text>
+                        </View>
+                        {this.state.assignment.points !== null &&
+                        <View style={{paddingLeft:15}}>
+                            <Text
+                                style={{fontSize: 18, fontWeight: 'bold'}}>
+                                Points: {this.state.assignment.points} </Text>
+                        </View>}
 
                         <FormLabel
-                            style={{fontSize: 15, fontWeight: 'bold', color: 'gray'}}>
+                            style={{fontSize: 24, fontWeight: 'bold', color: 'red'}}>
                             Essay Answer</FormLabel>
                         <FormInput
-                            multiline={true}
-                            placeholder={'This would be an empty textarea where students can answer the essay question.' +
-                            ' The textarea should be atleast 5 rows high, take the entire width of container, and be resizeable' +
-                            'from bottom right corner.'}
-                            numberOfLines={5}
-                            // onChangeText={(text) => this.setState({text})}
-                            // value={this.state.text}
-                        />
+                            borderWidth={1}
+                            borderColor="gray"
+                        borderRadius={14}/>
+                        {/*<TextInput*/}
+                            {/*multiline={true}*/}
+                            {/*// placeholder={'This would be an empty textarea where students can answer the essay question.' +*/}
+                            {/*// ' The textarea should be atleast 5 rows high, take the entire width of container, and be resizeable' +*/}
+                            {/*// 'from bottom right corner.'}*/}
+                            {/*numberOfLines={5}*/}
+                            {/*// onChangeText={(text) => this.setState({text})}*/}
+                            {/*// value={this.state.text}*/}
+                        {/*/>*/}
 
                         <FormLabel
-                            style={{fontSize: 15, fontWeight: 'bold', color: 'gray'}}>
+                            style={{fontSize: 24, fontWeight: 'bold', color: 'gray'}}>
                             Upload a file</FormLabel>
                         <FormInput
                             placeholder={'No file chosen'}/>
 
                         <FormLabel
-                            style={{fontSize: 15, fontWeight: 'bold', color: 'gray'}}>
+                            style={{fontSize: 24, fontWeight: 'bold', color: 'gray'}}>
                             Submit a link</FormLabel>
-                        <FormInput/>
+                        <FormInput
+                        placeholder={"enter a url"}/>
 
                         <View style={{ marginTop:20}} >
                             <Button	backgroundColor="blue"
                                        color="white"
                                        title="Submit"
                                        borderRadius={10}
-                                       borderWidth={2}/>
+                                       borderWidth={2}
+                                       onPush={()=> {}}
+                            />
 
                         </View>
 
@@ -224,7 +257,9 @@ class Assignment extends React.Component {
                                        color="white"
                                        title="Cancel"
                                        borderRadius={10}
-                                       borderWidth={2}/>
+                                       borderWidth={2}
+                                       onPush={()=> {}}
+                            />
                         </View>
                     </View>}
                 </View>
