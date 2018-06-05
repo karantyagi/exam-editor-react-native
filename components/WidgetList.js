@@ -114,7 +114,7 @@ class WidgetList extends Component {
                 type='font-awesome'
                 onPress={() =>{
                     if(this.state.selectedWidgetTypeIndex == 0){
-                        Alert.alert('Navigate to ADD ASSIGNMENT WIDGET SCREEN, and add new Assignment to DB');
+                        // Alert.alert('Navigate to ADD ASSIGNMENT WIDGET SCREEN, and add new Assignment to DB');
                         this.props.navigation
                             .navigate("Assignment", {topicId: this.state.topicId })
                     }
