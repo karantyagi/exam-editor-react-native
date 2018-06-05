@@ -8,7 +8,7 @@ class CourseList extends Component {
         super(props);
 
         // REPLACE WITH HEROKU SERVER
-        fetch('http://10.110.46.93:8080/api/course')
+        fetch('https://kt-course-manager-server.herokuapp.com/api/course')
             .then(response => {
                 // alert(response);
                 return (response.json());

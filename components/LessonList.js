@@ -16,7 +16,7 @@ class LessonList extends Component {
     const {navigation} = this.props;
     const courseId = navigation.getParam("courseId")
     const moduleId = navigation.getParam("moduleId")
-    fetch("http://10.110.46.93:8080/api/course/"+courseId+"/module/"+moduleId+"/lesson")
+    fetch("https://kt-course-manager-server.herokuapp.com/api/course/"+courseId+"/module/"+moduleId+"/lesson")
       .then(response => (response.json()))
       .then(lessons => this.setState({lessons}))
   }

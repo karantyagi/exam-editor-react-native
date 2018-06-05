@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {View, Alert} from 'react-native'
 import {Text, ListItem} from 'react-native-elements'
 
+
 class TopicList extends Component {
     static navigationOptions = {title: 'Topics'}
     constructor(props) {
@@ -12,13 +13,17 @@ class TopicList extends Component {
             courseId: 1,
             moduleId: 1
         }
+
     }
+
+
+
     componentDidMount() {
         const {navigation} = this.props;
         const courseId = navigation.getParam("courseId")
         const moduleId = navigation.getParam("moduleId")
         const lessonId = navigation.getParam("lessonId")
-        fetch("http://10.110.46.93:8080/api/course/"+courseId+"/module/"+moduleId+"/lesson/"+lessonId+"/topic")
+        fetch("https://kt-course-manager-server.herokuapp.com/api/course/"+courseId+"/module/"+moduleId+"/lesson/"+lessonId+"/topic")
             .then(response => (response.json()))
             .then(topics => this.setState({topics}))
             .catch((error)=>{
@@ -26,7 +31,9 @@ class TopicList extends Component {
             });
     }
     render() {
+
         return(
+
             <View style={{padding: 15}}>
                 {this.state.topics.map(
                     (topic, index) => (
@@ -35,7 +42,11 @@ class TopicList extends Component {
                                 .navigate("WidgetList", {topicId: topic.id})}
                             key={index}
                             title={topic.title}/>))}
+
             </View>
+
+
+
         )
     }
 }
