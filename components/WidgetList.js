@@ -16,7 +16,47 @@ class WidgetList extends Component {
     }
 
       this.selectWidgetType = this.selectWidgetType.bind(this);
+      this.deleteExam = this.deleteExam.bind(this);
+      this.deleteAssignment = this.deleteAssignment.bind(this);
   }
+
+
+  deleteAssignment = (aId) => {
+
+      //alert("delete" + aId);
+
+      fetch("https://kt-course-manager-server.herokuapp.com/api/assignment/"+aId,
+          {
+              method: 'DELETE'
+          })
+          .then(response => (response))
+          .catch((error)=>{
+              alert(error.message);
+          });
+
+      this.props.navigation
+          .navigate("WidgetList", {topicId: this.state.topicId})
+
+  }
+
+    deleteExam = (examId) => {
+
+        alert(" Deleted Exam :" + examId);
+
+        // fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId,
+        //     {
+        //         method: 'DELETE'
+        //     })
+        //     .then(response => (response))
+        //     .catch((error)=>{
+        //         alert(error.message);
+        //     });
+
+        this.props.navigation
+            .navigate("WidgetList", {topicId: this.state.topicId})
+
+    }
+
 
     selectWidgetType = (newWidgetTypeIndex) => {
       if(newWidgetTypeIndex == 0){
@@ -122,7 +162,8 @@ class WidgetList extends Component {
                                     type='font-awesome'
                                     raised
                                     color={'#f50'}
-                                    onPress={() => alert('Delete assignment/widget ?? by ID: '+widget.id)}
+                                    // onPress={() => alert('Delete assignment/widget ?? by ID: '+widget.id)}
+                                    onPress={() => this.deleteAssignment(widget.id)}
                                 />}
                             />
                     ))}
@@ -145,7 +186,7 @@ class WidgetList extends Component {
                     type='font-awesome'
                     raised
                     color={'#f50'}
-                    onPress={() => alert('Delete exam/widget ?? by ID: '+widget.id)}
+                    onPress={() => this.deleteExam(widget.id)}
                 />}
           />))}
 

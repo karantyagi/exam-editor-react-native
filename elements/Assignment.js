@@ -43,30 +43,28 @@ class Assignment extends React.Component {
             alert("Some fields are empty !")
         }
         else{
-            this.setState(
-                {assignment:
-                        {
-                            title: this.state.assignment.text,
-                            description: this.state.assignment.description,
-                            points: parseInt(this.state.assignment.points),
-                            widgetOrder: this.state.assignment.widgetOrder,
-                            widgetType: this.state.assignment.widgetType
-                        }});
+
 
             alert("Assignment Added Successfully !\n\nTitle: "+this.state.assignment.title+"\n"+
                 "Desc: "+this.state.assignment.description+"\n"+
                 "Points: "+this.state.assignment.points);
 
-            // fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/assignment",
-            //     {
-            //         body: JSON.stringify(this.state.assignment),
-            //         headers: { 'Content-Type': 'application/json' },
-            //         method: 'POST'
-            //     })
-            //     .then(response => (response.json()))
-            //     .catch((error)=>{
-            //         alert(error.message);
-            //     });
+            fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/assignment",
+                {
+                    body: JSON.stringify({
+                        title: this.state.assignment.title,
+                        description: this.state.assignment.description,
+                        points: parseInt(this.state.assignment.points),
+                        widgetOrder: this.state.assignment.widgetOrder,
+                        widgetType: this.state.assignment.widgetType
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST'
+                })
+                .then(response => (response.json()))
+                .catch((error)=>{
+                    alert(error.message);
+                });
 
             this.props.navigation
                 .navigate("WidgetList", {topicId: this.state.topicId})
@@ -88,11 +86,12 @@ class Assignment extends React.Component {
         return(
             <ScrollView>
                 <View>
-
-                    <Text>{'\n'}</Text>
-                    <Text style={{textAlign: 'center',color: 'gray', fontSize: 17 }}>
-                        Create new Assignment for Topic ID: {this.state.topicId}</Text>
-
+                    {/*{!this.state.preview &&*/}
+                    {/*<View>*/}
+                    {/*<Text>{'\n'}</Text>*/}
+                    {/*<Text style={{textAlign: 'center',color: 'gray', fontSize: 17 }}>*/}
+                        {/*Create new Assignment for Topic ID: {this.state.topicId}</Text>*/}
+                    {/*</View>}*/}
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                         <Switch
                             value = {this.state.preview}
@@ -160,7 +159,7 @@ class Assignment extends React.Component {
                                             {
                                                 title: this.state.assignment.title,
                                                 description: this.state.assignment.description,
-                                                points: parseInt(text),
+                                                points: text,
                                                 widgetOrder: this.state.assignment.widgetOrder,
                                                 widgetType: this.state.assignment.widgetType
                                             }
@@ -205,20 +204,18 @@ class Assignment extends React.Component {
                             <Text style={{fontSize: 16}}>
                                 {this.state.assignment.description}</Text>
                         </View>
-                        {this.state.assignment.points !== null &&
+                        {this.state.assignment.points !== "" &&
                         <View style={{paddingLeft:15}}>
                             <Text
                                 style={{fontSize: 18, fontWeight: 'bold'}}>
                                 Points: {this.state.assignment.points} </Text>
                         </View>}
 
-                        <FormLabel
-                            style={{fontSize: 24, fontWeight: 'bold', color: 'red'}}>
+                        <FormLabel>
                             Essay Answer</FormLabel>
                         <FormInput
                             borderWidth={1}
-                            borderColor="gray"
-                        borderRadius={14}/>
+                            borderRadius={14}/>
                         {/*<TextInput*/}
                             {/*multiline={true}*/}
                             {/*// placeholder={'This would be an empty textarea where students can answer the essay question.' +*/}
@@ -229,14 +226,11 @@ class Assignment extends React.Component {
                             {/*// value={this.state.text}*/}
                         {/*/>*/}
 
-                        <FormLabel
-                            style={{fontSize: 24, fontWeight: 'bold', color: 'gray'}}>
-                            Upload a file</FormLabel>
+                        <FormLabel>Upload a file</FormLabel>
                         <FormInput
                             placeholder={'No file chosen'}/>
 
-                        <FormLabel
-                            style={{fontSize: 24, fontWeight: 'bold', color: 'gray'}}>
+                        <FormLabel>
                             Submit a link</FormLabel>
                         <FormInput
                         placeholder={"enter a url"}/>
