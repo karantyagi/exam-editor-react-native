@@ -55,6 +55,26 @@ class WidgetList extends Component {
             alert(error.message);
         });
   }
+
+  componentWillReceiveProps(newProps)
+  {
+      //alert("I just got fired !")
+
+      // RELOAD LIST AGAIN
+
+      const {navigation} = newProps;
+      const topicId = navigation.getParam("topicId");
+      this.setState({
+          topicId: topicId
+      })
+      fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/assignment")
+          .then(response => (response.json()))
+          .then(widgets => this.setState({widgets}))
+          .catch((error)=>{
+              alert(error.message);
+          });
+  }
+
   render() {
 
       const widgetTypes = [
@@ -93,7 +113,19 @@ class WidgetList extends Component {
                                 .navigate("AssignmentList", {examId: widget.id})}
                             key={index}
                             subtitle={widget.description}
-                            title={widget.title}/>))}
+                            title={widget.title}
+                            rightIcon={
+                                <Icon
+                                    key={'k'+index.toString()}
+                                    name={'times'}
+                                    size={20}
+                                    type='font-awesome'
+                                    raised
+                                    color={'#f50'}
+                                    onPress={() => alert('Delete !')}
+                                />}
+                            />
+                    ))}
 
 
       {this.state.selectedWidgetTypeIndex == 1 &&
@@ -123,8 +155,8 @@ class WidgetList extends Component {
                     }
                 }}/>
             <Text style={{fontSize: 18, color: '#2fa300'}}>
-                Add new {this.state.selectedWidgetTypeIndex == 0 && <Text>assignment</Text>}
-                {this.state.selectedWidgetTypeIndex == 1 && <Text>exam</Text>}
+                Add {this.state.selectedWidgetTypeIndex == 0 && <Text>Assignment</Text>}
+                {this.state.selectedWidgetTypeIndex == 1 && <Text>Exam</Text>}
             </Text>
 
       </View>

@@ -9,15 +9,20 @@ class Assignment extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '',
-            description: '',
-            points: 0,
-            isTrue: true,
             topicId: 0,
-            preview: false
+            preview: false,
+            assignment:
+                {
+                    title: '',
+                    description: '',
+                    points: null,
+                    widgetOrder: 1,
+                    widgetType: 'Assignment'
+                }
         }
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
+        this.addAssignment = this.addAssignment.bind(this);
     }
 
     toggleSwitch = () => {
@@ -28,6 +33,37 @@ class Assignment extends React.Component {
 
     updateForm(newState) {
         this.setState(newState)
+    }
+
+    addAssignment = () => {
+
+        if(this.state.assignment.points === null ||
+            this.state.assignment.title === "" ||
+            this.state.assignment.description === ""){
+            alert("Some fields are empty !")
+        }
+        else{
+            alert("Assignment Added Successfully !\n\nTitle: "+this.state.assignment.title+"\n"+
+                "Desc: "+this.state.assignment.description+"\n"+
+                "Points: "+this.state.assignment.points);
+
+            // fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/assignment",
+            //     {
+            //         body: JSON.stringify(this.state.assignment),
+            //         headers: { 'Content-Type': 'application/json' },
+            //         method: 'POST'
+            //     })
+            //     .then(response => (response.json()))
+            //     .catch((error)=>{
+            //         alert(error.message);
+            //     });
+
+            this.props.navigation
+                .navigate("WidgetList", {topicId: this.state.topicId})
+        }
+
+
+
     }
 
     componentDidMount() {
@@ -61,52 +97,85 @@ class Assignment extends React.Component {
                     <View>
                         <FormLabel>Title</FormLabel>
                         <FormInput
-                            placeholder='Assignment title ...'
+                            placeholder='Assignment title '
                             onChangeText={
-                                text => this.updateForm({title: text})
+                                text => this.updateForm(
+                                    {assignment:
+                                        {
+                                            title: text,
+                                            description: this.state.assignment.description,
+                                            points:this.state.assignment.points,
+                                            widgetOrder: this.state.assignment.widgetOrder,
+                                            widgetType: this.state.assignment.widgetType
+                                        }
+                                    })
                             }/>
+
+                        {this.state.assignment.title === "" &&
                         <FormValidationMessage>
                             Title is required
-                        </FormValidationMessage>
+                        </FormValidationMessage>}
 
                         <FormLabel>Description</FormLabel>
                         <FormInput
                             placeholder='Assignment Description'
                             onChangeText={
-                                text => this.updateForm({description: text})
+                                text => this.updateForm(
+                                    {assignment:
+                                            {
+                                                title: this.state.assignment.title,
+                                                description: text,
+                                                points:this.state.assignment.points,
+                                                widgetOrder: this.state.assignment.widgetOrder,
+                                                widgetType: this.state.assignment.widgetType
+                                            }
+                                    })
                             }/>
+                        {this.state.assignment.description === "" &&
                         <FormValidationMessage>
                             Description is required
-                        </FormValidationMessage>
+                        </FormValidationMessage>}
 
                         <FormLabel>Points</FormLabel>
                         <FormInput
                             placeholder='Enter points for Assignment'
                             onChangeText={
-                                text => this.updateForm({points: text})
+                                text => this.updateForm(
+                                    {assignment:
+                                            {
+                                                title: this.state.assignment.title,
+                                                description: this.state.assignment.description,
+                                                points: parseInt(text),
+                                                widgetOrder: this.state.assignment.widgetOrder,
+                                                widgetType: this.state.assignment.widgetType
+                                            }
+
+                                    })
                             }/>
+                        {this.state.assignment.points === null &&
                         <FormValidationMessage>
                             Points are required
-                        </FormValidationMessage>
-                        <Text> Points: {this.state.points}</Text>
+                        </FormValidationMessage>}
 
                         <View style={{ marginTop:20}} >
                             <Button	backgroundColor="green"
                                        color="white"
                                        title="Save"
                                        borderRadius={10}
-                                       borderWidth={2}/>
+                                       borderWidth={2}
+                                       onPress={this.addAssignment}
+                            />
 
                         </View>
 
-                        <View style={{ marginTop:10, marginBottom:30}}>
-                            <Button	backgroundColor="red"
-                                       color="white"
-                                       title="Cancel"
-                                       borderRadius={10}
-                                       borderWidth={2}                        />
+                        {/*<View style={{ marginTop:10, marginBottom:30}}>*/}
+                            {/*<Button	backgroundColor="red"*/}
+                                       {/*color="white"*/}
+                                       {/*title="Cancel"*/}
+                                       {/*borderRadius={10}*/}
+                                       {/*borderWidth={2}                        />*/}
 
-                        </View>
+                        {/*</View>*/}
 
                     </View>}
 
