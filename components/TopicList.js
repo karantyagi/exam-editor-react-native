@@ -39,7 +39,7 @@ class TopicList extends Component {
                     (topic, index) => (
                         <ListItem
                             onPress={() => this.props.navigation
-                                .navigate("WidgetList", {topicId: topic.id})}
+                                .navigate("WidgetList", {topicId: topic.id, typeWidget: 'Assignment'})}
                             key={index}
                             title={topic.title}/>))}
 

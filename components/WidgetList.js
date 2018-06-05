@@ -8,6 +8,7 @@ class WidgetList extends Component {
     super(props)
     this.state = {
         topicId: 0,
+        typeWidget: 'Assignment',
         selectedWidgetTypeIndex: 0,
         widgets: [],
         lessonId: 1,
@@ -23,7 +24,7 @@ class WidgetList extends Component {
 
   deleteAssignment = (aId) => {
 
-      //alert("delete" + aId);
+      alert("Deleted Assignment ID " + aId);
 
       fetch("https://kt-course-manager-server.herokuapp.com/api/assignment/"+aId,
           {
@@ -35,25 +36,25 @@ class WidgetList extends Component {
           });
 
       this.props.navigation
-          .navigate("WidgetList", {topicId: this.state.topicId})
+          .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Assignment'})
 
   }
 
     deleteExam = (examId) => {
 
-        alert(" Deleted Exam :" + examId);
+        alert(" Deleted Exam ID:" + examId);
 
-        // fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId,
-        //     {
-        //         method: 'DELETE'
-        //     })
-        //     .then(response => (response))
-        //     .catch((error)=>{
-        //         alert(error.message);
-        //     });
+        fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId,
+            {
+                method: 'DELETE'
+            })
+            .then(response => (response))
+            .catch((error)=>{
+                alert(error.message);
+            });
 
         this.props.navigation
-            .navigate("WidgetList", {topicId: this.state.topicId})
+            .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Exam'})
 
     }
 
@@ -85,15 +86,28 @@ class WidgetList extends Component {
   componentDidMount() {
     const {navigation} = this.props;
     const topicId = navigation.getParam("topicId");
+      const typeWidget = navigation.getParam("typeWidget");
       this.setState({
-          topicId: topicId
+          topicId: topicId,
+          typeWidget: typeWidget
       })
+
+      if(typeWidget === 'Assignment'){
     fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/assignment")
       .then(response => (response.json()))
       .then(widgets => this.setState({widgets}))
         .catch((error)=>{
             alert(error.message);
         });
+      }
+      else{
+          fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/exam")
+              .then(response => (response.json()))
+              .then(widgets => this.setState({widgets}))
+              .catch((error)=>{
+                  alert(error.message);
+              });
+      }
   }
 
   componentWillReceiveProps(newProps)
@@ -104,15 +118,28 @@ class WidgetList extends Component {
 
       const {navigation} = newProps;
       const topicId = navigation.getParam("topicId");
+      const typeWidget = navigation.getParam("typeWidget");
       this.setState({
-          topicId: topicId
+          topicId: topicId,
+          typeWidget: typeWidget
       })
-      fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/assignment")
-          .then(response => (response.json()))
-          .then(widgets => this.setState({widgets}))
-          .catch((error)=>{
-              alert(error.message);
-          });
+
+      if(typeWidget === 'Assignment'){
+          fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/assignment")
+              .then(response => (response.json()))
+              .then(widgets => this.setState({widgets}))
+              .catch((error)=>{
+                  alert(error.message);
+              });
+      }
+      else{
+          fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+topicId+"/exam")
+              .then(response => (response.json()))
+              .then(widgets => this.setState({widgets}))
+              .catch((error)=>{
+                  alert(error.message);
+              });
+      }
   }
 
   render() {
