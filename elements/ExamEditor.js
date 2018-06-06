@@ -9,7 +9,11 @@ class ExamEditor extends React.Component {
         this.state =
             {
                 examId: 1,
-                exam: ''
+                exam:
+                    {
+                        title: 'Old exam title',
+                        description: 'old exam description'
+                    }
             }
 
     }
@@ -32,7 +36,40 @@ class ExamEditor extends React.Component {
 
         <View>
             <View>
-                <Text> {this.state.examId} </Text>
+
+                <FormLabel>Exam ID: {this.state.examId} </FormLabel>
+
+
+                <FormLabel>Exam Title</FormLabel>
+                <FormInput
+                    value={this.state.exam.title}
+                    onChangeText={
+                        text => this.updateForm(
+                            {exam:
+                                    {
+                                        title: text,
+                                        description: this.state.exam.description,
+                                        widgetOrder: this.state.exam.widgetOrder,
+                                        widgetType: this.state.exam.widgetType
+                                    }
+                            })
+                    }/>
+
+
+                <FormLabel>Exam Description</FormLabel>
+                <FormInput
+                    value={this.state.exam.description}
+                    onChangeText={
+                        text => this.updateForm(
+                            {exam:
+                                    {
+                                        title: this.state.exam.title,
+                                        description: text,
+                                        widgetOrder: this.state.exam.widgetOrder,
+                                        widgetType: this.state.exam.widgetType
+                                    }
+                            })
+                    }/>
             </View>
 
 

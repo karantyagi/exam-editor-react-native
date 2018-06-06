@@ -50,10 +50,10 @@ class Exam extends React.Component {
             // fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/exam",
             //     {
             //         body: JSON.stringify({
-            //             title: this.state.assignment.title,
-            //             description: this.state.assignment.description,
-            //             widgetOrder: this.state.assignment.widgetOrder,
-            //             widgetType: this.state.assignment.widgetType
+            //             title: this.state.exam.title,
+            //             description: this.state.exam.description,
+            //             widgetOrder: this.state.exam.widgetOrder,
+            //             widgetType: this.state.exam.widgetType
             //         }),
             //         headers: { 'Content-Type': 'application/json' },
             //         method: 'POST'
@@ -85,7 +85,7 @@ class Exam extends React.Component {
                     {/*<View>*/}
                     {/*<Text>{'\n'}</Text>*/}
                     {/*<Text style={{textAlign: 'center',color: 'gray', fontSize: 17 }}>*/}
-                    {/*Create new Assignment for Topic ID: {this.state.topicId}</Text>*/}
+                    {/*Create new Exam for Topic ID: {this.state.topicId}</Text>*/}
                     {/*</View>}*/}
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                         <Switch
@@ -101,7 +101,7 @@ class Exam extends React.Component {
                     <View>
                         <FormLabel>Exam Title</FormLabel>
                         <FormInput
-                            placeholder='Assignment title'
+                            placeholder='Exam title'
                             value={this.state.exam.title}
                             onChangeText={
                                 text => this.updateForm(
@@ -137,13 +137,12 @@ class Exam extends React.Component {
                             }/>
                         {this.state.exam.description === "" &&
                         <FormValidationMessage>
-                            Description is required
+                            Exam Description is required
                         </FormValidationMessage>}
 
                         <FormLabel>
-                            To add/edit questions to the exam,{'\n'}
-                            or to edit/update exam title, description {'\n'}
-                            navigate to exam list and click on exam.
+                            To add/edit questions to the exam,or to edit/update exam{'\n'}
+                            title, description navigate to exam list and click on exam.{'\n'}
                         </FormLabel>
 
 
@@ -153,7 +152,7 @@ class Exam extends React.Component {
                                        title="Save"
                                        borderRadius={10}
                                        borderWidth={2}
-                                       onPress={this.addAssignment}
+                                       onPress={this.addExam}
                             />
 
                         </View>
@@ -166,7 +165,7 @@ class Exam extends React.Component {
                                        borderWidth={2}
                                        onPress={() => {
                                            this.props.navigation
-                                               .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Assignment'})
+                                               .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Exam'})
                                        }}/>
 
                         </View>
@@ -177,72 +176,14 @@ class Exam extends React.Component {
                     <View>
                         {/*<Text style={{textAlign: 'center',color: 'gray', fontSize: 18 }}>Preview</Text>*/}
                         <View style={{paddingLeft:15}}>
-                            <Text h3>
-                                {this.state.assignment.title}</Text>
+                            <Text h3>Title:
+                                {this.state.exam.title}</Text>
                         </View>
                         <View style={{paddingLeft:15}}>
-                            <Text style={{fontSize: 16}}>
-                                {this.state.assignment.description}</Text>
-                        </View>
-                        {this.state.assignment.points !== "" &&
-                        <View style={{paddingLeft:15}}>
-                            <Text
-                                style={{fontSize: 18, fontWeight: 'bold'}}>
-                                Points: {this.state.assignment.points} </Text>
-                        </View>}
-
-                        <FormLabel>
-                            Essay Answer</FormLabel>
-                        {/*<FormInput*/}
-                        {/*// borderWidth={1}*/}
-                        {/*// borderRadius={14}*/}
-                        {/*/>*/}
-                        <View style={{marginRight:15, marginLeft:15, paddingRight: 5, paddingBottom:5}}>
-                            <TextInput
-                                multiline={true}
-                                numberOfLines={5}
-                                editable = {true}
-                                maxLength = {40}
-                                onChangeText={() => {}}
-                                placeholder=
-                                    {
-                                        'This would be an empty textarea where faculty can describe the' +
-                                        ' assignment. The textarea should be atleast 5 rows high, take the entire ' +
-                                        'width of container, and be resizeable from bottom right corner.'}
-                                // value={this.state.text}
-                            />
+                            <Text style={{fontSize: 16}}>Description:
+                                {this.state.exam.description}</Text>
                         </View>
 
-
-                        <FormLabel>Upload a file</FormLabel>
-                        <FormInput
-                            placeholder={'No file chosen'}/>
-
-                        <FormLabel>
-                            Submit a link</FormLabel>
-                        <FormInput
-                            placeholder={"enter a url"}/>
-
-                        <View style={{ marginTop:20}} >
-                            <Button	backgroundColor="blue"
-                                       color="white"
-                                       title="Submit"
-                                       borderRadius={10}
-                                       borderWidth={2}
-                                       onPush={()=> {}}
-                            />
-
-                        </View>
-
-                        <View style={{ marginTop:10, marginBottom:30}}>
-                            <Button	backgroundColor="red"
-                                       color="white"
-                                       title="Cancel"
-                                       borderRadius={10}
-                                       borderWidth={2}
-                                       onPush={()=> {}}
-                            />
-                        </View>
                     </View>}
                 </View>
             </ScrollView>

@@ -235,7 +235,8 @@ class WidgetList extends Component {
                             .navigate("Assignment", {topicId: this.state.topicId })
                     }
                     else{
-                        Alert.alert('Navigate to ADD NEW EXAM SCREEN , and add new exam to DB with Qs');
+                        this.props.navigation
+                            .navigate("Exam", {topicId: this.state.topicId })
                     }
                 }}/>
             <Text style={{fontSize: 18, color: '#2fa300'}}>

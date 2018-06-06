@@ -5,7 +5,6 @@ import { Divider } from 'react-native-elements'
 import FixedHeader from './elements/FixedHeader'
 import TextHeadings from './elements/TextHeadings'
 import Icons from './elements/Icons'
-import Exam from './elements/Exam'
 import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupChooser'
 import QuestionTypePicker from './elements/QuestionTypePicker'
 import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
@@ -17,6 +16,7 @@ import TopicList from './components/TopicList'
 import AssignmentList from './components/AssignmentList'
 import ExamEditor from './elements/ExamEditor'
 import Assignment from './elements/Assignment'
+import Exam from './elements/Exam'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
 import MultipleChoiceQuestionWidget from "./elements/MultipleChoiceQuestionWidget"
@@ -120,6 +120,7 @@ const App = createStackNavigator({
     WidgetList: {screen: WidgetList},
     Assignment: {screen: Assignment},
     ExamEditor: {screen: ExamEditor},
+    Exam: {screen: Exam},
     QuestionList: {screen: QuestionList},
     TrueOrFalseQuestionWidget: {screen: TrueOrFalseQuestionWidget},
     FillInTheBlanksQuestionWidget: {screen: FillInTheBlanksQuestionWidget},
