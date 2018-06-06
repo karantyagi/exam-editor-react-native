@@ -40,7 +40,7 @@ class QuestionTypeButtonGroupChooser extends Component {
                     onPress={this.selectQuestionType}
                     selectedIndex={this.state.selectedQuestionTypeIndex}
                     buttons={questionTypes}
-                    containerStyle={{height: 75}}/>
+                    containerStyle={{height: 60}}/>
 
                 <Text>{'\n'}</Text>
                 {this.state.selectedQuestionTypeIndex === 0 && this.renderMCQ()}

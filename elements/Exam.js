@@ -22,7 +22,8 @@ export default class Exam extends Component {
                         key={index}
                         leftIcon={{name: question.icon}}
                         subtitle={question.subtitle}
-                        title={question.title}/>
+                        title={question.title}
+                    />
                 ))}
             </View>
         )

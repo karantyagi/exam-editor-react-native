@@ -5,15 +5,15 @@ class QuestionTypePicker extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            questionType: 0
+            questionType: "MC"
         }
     }
     render() {
         return (
-            <View>
+            <View style={{paddingLeft: 40}}>
                 <Picker
                     style={{padding:20}}
-                    onValueChange={(itemValue, itemIndex) =>
+                    onValueChange={(itemValue) =>
                         this.setState({questionType: itemValue})}
                     selectedValue={this.state.questionType}>
                     <Picker.Item value="MC" label="Multiple Choice" />

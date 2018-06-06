@@ -18,8 +18,10 @@ import AssignmentList from './components/AssignmentList'
 import Assignment from './elements/Assignment'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
+import TrueFalseQuestion from "./elements/TrueFalseQuestion"
 
 import { createStackNavigator } from 'react-navigation'
+
 
 class Home extends Component {
     static navigationOptions = {
@@ -48,7 +50,7 @@ class Home extends Component {
                                 {/*.navigate('ScreenB') } />*/}
 
                     <QuestionTypeButtonGroupChooser/>
-                    {/*<QuestionTypePicker/>*/}
+                    <QuestionTypePicker/>
                     <Text>{"\n"}</Text>
                     <TrueFalseQuestionEditor/>
                     <Text>{"\n"}</Text>
@@ -114,6 +116,7 @@ const App = createStackNavigator({
     WidgetList: {screen: WidgetList},
     Assignment: {screen: Assignment},
     QuestionList: {screen: QuestionList},
+    TrueFalseQuestion: {screen: TrueFalseQuestion},
     ScreenA: {screen: ScreenA},
     ScreenB: {screen: ScreenB}
 });

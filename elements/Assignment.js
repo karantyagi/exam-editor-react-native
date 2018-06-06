@@ -67,7 +67,7 @@ class Assignment extends React.Component {
                 });
 
             this.props.navigation
-                .navigate("WidgetList", {topicId: this.state.topicId})
+                .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Assignment'})
         }
 
 
@@ -182,14 +182,18 @@ class Assignment extends React.Component {
 
                         </View>
 
-                        {/*<View style={{ marginTop:10, marginBottom:30}}>*/}
-                            {/*<Button	backgroundColor="red"*/}
-                                       {/*color="white"*/}
-                                       {/*title="Cancel"*/}
-                                       {/*borderRadius={10}*/}
-                                       {/*borderWidth={2}                        />*/}
+                        <View style={{ marginTop:10, marginBottom:30}}>
+                            <Button	backgroundColor="red"
+                                       color="white"
+                                       title="Cancel"
+                                       borderRadius={10}
+                                       borderWidth={2}
+                                       onPress={() => {
+                                           this.props.navigation
+                                               .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Assignment'})
+                                       }}/>
 
-                        {/*</View>*/}
+                        </View>
 
                     </View>}
 
