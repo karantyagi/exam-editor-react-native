@@ -49,25 +49,25 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
                 "Points: " + this.state.question.points + "\n" +
                 "Is true: " + this.state.question.isTrue);
 
-            // fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+this.state.questionId+"/tf",
-            //     {
-            //         body: JSON.stringify({
-            //             title: this.state.question.title,
-            //             description: this.state.question.description,
-            //             points: parseInt(this.state.question.points.toString()),
-            //             isTrue: this.state.question.isTrue,
-            //             subtitle: "True or False"
-            //         }),
-            //         headers: { 'Content-Type': 'application/json' },
-            //         method: 'PUT'
-            //     })
-            //     .then(response => (response.json()))
-            //     .catch((error)=>{
-            //         alert(error.message);
-            //     });
-            //
-            // this.props.navigation
-            //     .navigate("QuestionList", {examId: this.state.examId})
+            fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+this.state.questionId+"/tf",
+                {
+                    body: JSON.stringify({
+                        title: this.state.question.title,
+                        description: this.state.question.description,
+                        points: parseInt(this.state.question.points.toString()),
+                        isTrue: this.state.question.isTrue,
+                        subtitle: "True or False"
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'PUT'
+                })
+                .then(response => (response.json()))
+                .catch((error)=>{
+                    alert(error.message);
+                });
+
+            this.props.navigation
+                .navigate("QuestionList", {examId: this.state.examId})
 
         }
     }
@@ -103,8 +103,8 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
                     <Text h4 style={{textAlign: 'center',color: 'gray' }}>
                         Update True-False Question</Text>
 
-                    <FormLabel>Exam ID: {this.state.examId}</FormLabel>
-                    <FormLabel>Question ID: {this.state.questionId}</FormLabel>
+                    {/*<FormLabel>Exam ID: {this.state.examId}</FormLabel>*/}
+                    {/*<FormLabel>Question ID: {this.state.questionId}</FormLabel>*/}
 
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                         <Switch
