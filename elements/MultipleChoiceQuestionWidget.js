@@ -365,7 +365,7 @@ class MultipleChoiceQuestionWidget extends React.Component {
                     {/*</View>*/}
                     <View style={{padding:2}}>
                         <Text style={{fontWeight: "bold",fontSize: 28,padding: 2}}>
-                            {this.state.question.title} - True or False
+                            {this.state.question.title} - Multiple Choice
                         </Text>
                         <Text style={{fontWeight: "bold",color: 'gray', fontSize: 20,padding: 2}}>{this.state.question.points} pts</Text>
                         <Text style={{fontSize: 19, padding: 5}} >{this.state.question.description}</Text>

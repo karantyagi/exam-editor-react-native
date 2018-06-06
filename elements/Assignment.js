@@ -228,8 +228,8 @@ class Assignment extends React.Component {
                                 onChangeText={() => {}}
                                 placeholder=
                                     {
-                                        'This would be an empty textarea where students can answer the essay' +
-                                        ' question. The textarea should be atleast 5 rows high, take the entire ' +
+                                        'This would be an empty textarea where faculty can describe the' +
+                                        ' assignment. The textarea should be atleast 5 rows high, take the entire ' +
                                         'width of container, and be resizeable from bottom right corner.'}
                                 // value={this.state.text}
                             />
