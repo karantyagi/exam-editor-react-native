@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View, Alert, ScrollView, Picker} from 'react-native'
 import {Text, ListItem, Button} from 'react-native-elements'
+import Icon from "react-native-elements/src/icons/Icon";
 
 const questions = [
     {	title: 'Question 1', subtitle: 'Multiple choice',
@@ -24,6 +25,24 @@ class QuestionList extends Component {
       }
 
       this.addQuestion = this.addQuestion.bind(this);
+      this.deleteQuestion = this.deleteQuestion.bind(this);
+      this.iconName = this.iconName.bind(this);
+  }
+
+  iconName = (subtitle) => {
+
+      if(subtitle == "Multiple choice"){
+          return ({name: 'list'});
+      }
+      else if(subtitle == "Fill in the blanks"){
+          return ({name: 'code'});
+      }
+      else if(subtitle == "True or False"){
+          return ({name: 'check'});
+      }
+      else{
+          return ({name: 'subject'});
+      }
   }
 
   addQuestion = () => {
@@ -47,6 +66,23 @@ class QuestionList extends Component {
 
   }
 
+    deleteQuestion = (questionId) => {
+
+        alert("Deleted Question ID " + questionId);
+
+        fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+questionId,
+            {
+                method: 'DELETE'
+            })
+            .then(response => (response))
+            .catch((error)=>{
+                alert(error.message);
+            });
+        this.props.navigation
+            .navigate("QuestionList", {examId: this.state.examId})
+
+    }
+
 
 
   componentDidMount() {
@@ -62,6 +98,24 @@ class QuestionList extends Component {
             alert(error.message);
         });
   }
+
+
+    componentWillReceiveProps(newProps)
+    {
+        const {navigation} = newProps;
+        const examId = navigation.getParam("examId")
+        this.setState({
+            examId: examId
+        })
+        fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId+"/question")
+            .then(response => (response.json()))
+            .then(questions => this.setState({questions}))
+            .catch((error)=>{
+                alert(error.message);
+            });
+    }
+
+
   render() {
     return(
         <ScrollView>
@@ -101,9 +155,20 @@ class QuestionList extends Component {
                 {this.state.questions.map( (question, index) => (
                     <ListItem
                         key={index}
-                        leftIcon={{name: 'list'}}
+                        leftIcon={this.iconName(question.subtitle)}
                         subtitle={question.subtitle}
                         title={question.title}
+                        rightIcon={
+                            <Icon
+                                key={'k'+index.toString()}
+                                name={'times'}
+                                // size={20}
+                                type='font-awesome'
+                                // raised
+                                // color={'#f50'}
+                                // onPress={() => alert('Delete assignment/widget ?? by ID: '+widget.id)}
+                                onPress={() => this.deleteQuestion(question.id)}
+                            />}
                     />
                 ))}
             </View>
