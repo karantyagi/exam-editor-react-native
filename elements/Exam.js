@@ -11,7 +11,6 @@ class Exam extends React.Component {
         super(props)
         this.state = {
             topicId: 0,
-            preview: false,
             exam:
                 {
                     title: '',
@@ -21,14 +20,7 @@ class Exam extends React.Component {
                 }
         }
 
-        this.toggleSwitch = this.toggleSwitch.bind(this);
         this.addExam = this.addExam.bind(this);
-    }
-
-    toggleSwitch = () => {
-        this.setState(state => ({
-            preview: !state.preview,
-        }));
     }
 
     updateForm(newState) {
@@ -47,21 +39,21 @@ class Exam extends React.Component {
             alert("Exam Added Successfully !\n\nTitle: "+this.state.exam.title+"\n"+
                 "Desc: "+this.state.exam.description);
 
-            // fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/exam",
-            //     {
-            //         body: JSON.stringify({
-            //             title: this.state.exam.title,
-            //             description: this.state.exam.description,
-            //             widgetOrder: this.state.exam.widgetOrder,
-            //             widgetType: this.state.exam.widgetType
-            //         }),
-            //         headers: { 'Content-Type': 'application/json' },
-            //         method: 'POST'
-            //     })
-            //     .then(response => (response.json()))
-            //     .catch((error)=>{
-            //         alert(error.message);
-            //     });
+            fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/exam",
+                {
+                    body: JSON.stringify({
+                        title: this.state.exam.title,
+                        description: this.state.exam.description,
+                        widgetOrder: this.state.exam.widgetOrder,
+                        widgetType: this.state.exam.widgetType
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST'
+                })
+                .then(response => (response.json()))
+                .catch((error)=>{
+                    alert(error.message);
+                });
 
             this.props.navigation
                 .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Exam'})
@@ -80,25 +72,7 @@ class Exam extends React.Component {
     render() {
         return(
             <ScrollView>
-                <View>
-                    {/*{!this.state.preview &&*/}
-                    {/*<View>*/}
-                    {/*<Text>{'\n'}</Text>*/}
-                    {/*<Text style={{textAlign: 'center',color: 'gray', fontSize: 17 }}>*/}
-                    {/*Create new Exam for Topic ID: {this.state.topicId}</Text>*/}
-                    {/*</View>}*/}
-                    <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
-                        <Switch
-                            value = {this.state.preview}
-                            onValueChange={this.toggleSwitch}
-                            style={{marginBottom: 4}}/>
-                        <Text style={{paddingTop: 3, color: 'gray', fontSize: 16 }}>
-                            {this.state.preview ? 'Preview On' : 'Preview Off'}
-                        </Text>
-                    </View>
-
-                    {!this.state.preview &&
-                    <View>
+                    <View style={{marginTop:15}}>
                         <FormLabel>Exam Title</FormLabel>
                         <FormInput
                             placeholder='Exam title'
@@ -167,25 +141,10 @@ class Exam extends React.Component {
                                            this.props.navigation
                                                .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Exam'})
                                        }}/>
-
                         </View>
 
-                    </View>}
+                    </View>
 
-                    {this.state.preview &&
-                    <View>
-                        {/*<Text style={{textAlign: 'center',color: 'gray', fontSize: 18 }}>Preview</Text>*/}
-                        <View style={{paddingLeft:15}}>
-                            <Text h3>Title:
-                                {this.state.exam.title}</Text>
-                        </View>
-                        <View style={{paddingLeft:15}}>
-                            <Text style={{fontSize: 16}}>Description:
-                                {this.state.exam.description}</Text>
-                        </View>
-
-                    </View>}
-                </View>
             </ScrollView>
         )
     }
