@@ -56,23 +56,23 @@ class QuestionList extends Component {
 
   }
 
-    updateQuestion = () => {
-        // alert("Add Question: "+this.state.questionType );
-        if(this.state.questionType == "TF"){
+    updateQuestion = (subtitle, qId) => {
+
+        if(subtitle == "True or False"){
             this.props.navigation
-                .navigate("TrueOrFalseQuestionWidgetEditor", {examId: this.state.examId})
+                .navigate("TrueOrFalseQuestionWidgetEditor", {examId: this.state.examId, questionId: qId})
         }
-        else if(this.state.questionType == "MC"){
+        else if(subtitle == "Multiple choice"){
             this.props.navigation
-                .navigate("MultipleChoiceQuestionWidgetEditor", {examId: this.state.examId})
+                .navigate("MultipleChoiceQuestionWidgetEditor", {examId: this.state.examId, questionId: qId})
         }
-        else if(this.state.questionType == "ES"){
+        else if(subtitle == "Fill in the blanks"){
             this.props.navigation
-                .navigate("EssayQuestionWidgetEditor", {examId: this.state.examId})
+                .navigate("FillInTheBlanksQuestionWidgetEditor", {examId: this.state.examId, questionId: qId})
         }
         else{
             this.props.navigation
-                .navigate("FillInTheBlanksQuestionWidgetEditor", {examId: this.state.examId})
+                .navigate("EssayQuestionWidgetEditor", {examId: this.state.examId, questionId: qId})
         }
 
     }
@@ -184,6 +184,7 @@ class QuestionList extends Component {
                 <Text h4>List</Text>
                 {this.state.questions.map( (question, index) => (
                     <ListItem
+                        onPress={() =>this.updateQuestion(question.subtitle, question.id)}
                         key={index}
                         leftIcon={this.iconName(question.subtitle)}
                         subtitle={question.subtitle}
