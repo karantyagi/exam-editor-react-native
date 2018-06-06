@@ -27,11 +27,23 @@ class QuestionList extends Component {
   }
 
   addQuestion = () => {
-    alert("Add Question: "+this.state.questionType );
-    if(this.state.questionType === "TF"){
+    // alert("Add Question: "+this.state.questionType );
+    if(this.state.questionType == "TF"){
       this.props.navigation
-            .navigate("TrueFalseQuestion", {examId: this.state.examId})
+            .navigate("TrueOrFalseQuestionWidget", {examId: this.state.examId})
     }
+      else if(this.state.questionType == "MC"){
+          this.props.navigation
+              .navigate("MultipleChoiceQuestionWidget", {examId: this.state.examId})
+      }
+      else if(this.state.questionType == "ES"){
+          this.props.navigation
+              .navigate("EssayQuestionWidget", {examId: this.state.examId})
+      }
+      else{
+          this.props.navigation
+              .navigate("FillInTheBlanksQuestionWidget", {examId: this.state.examId})
+      }
 
   }
 

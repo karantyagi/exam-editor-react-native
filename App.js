@@ -18,7 +18,10 @@ import AssignmentList from './components/AssignmentList'
 import Assignment from './elements/Assignment'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
-import TrueFalseQuestion from "./elements/TrueFalseQuestion"
+import MultipleChoiceQuestionWidget from "./elements/MultipleChoiceQuestionWidget"
+import EssayQuestionWidget from "./elements/EssayQuestionWidget"
+import FillInTheBlanksQuestionWidget from "./elements/FillInTheBlanksQuestionWidget"
+import TrueOrFalseQuestionWidget from "./elements/TrueOrFalseQuestionWidget"
 
 import { createStackNavigator } from 'react-navigation'
 
@@ -116,7 +119,10 @@ const App = createStackNavigator({
     WidgetList: {screen: WidgetList},
     Assignment: {screen: Assignment},
     QuestionList: {screen: QuestionList},
-    TrueFalseQuestion: {screen: TrueFalseQuestion},
+    TrueOrFalseQuestionWidget: {screen: TrueOrFalseQuestionWidget},
+    FillInTheBlanksQuestionWidget: {screen: FillInTheBlanksQuestionWidget},
+    MultipleChoiceQuestionWidget: {screen: MultipleChoiceQuestionWidget},
+    EssayQuestionWidget: {screen: EssayQuestionWidget},
     ScreenA: {screen: ScreenA},
     ScreenB: {screen: ScreenB}
 });
