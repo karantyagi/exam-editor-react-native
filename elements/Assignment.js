@@ -225,6 +225,8 @@ class Assignment extends React.Component {
                             <TextInput
                                 multiline={true}
                                 numberOfLines={5}
+                                editable = {true}
+                                maxLength = {40}
                                 onChangeText={() => {}}
                                 placeholder=
                                     {

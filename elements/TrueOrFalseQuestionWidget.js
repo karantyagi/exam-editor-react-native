@@ -242,7 +242,6 @@ class TrueOrFalseQuestionWidget extends React.Component {
                                    onPush={()=> {}}
                         />
 
-
                     </View>
 
                     <View style={{ marginTop:10, marginBottom:30}}>
