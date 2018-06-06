@@ -13,9 +13,9 @@ import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import TopicList from './components/TopicList'
-import AssignmentList from './components/AssignmentList'
 import ExamEditor from './elements/ExamEditor'
 import Assignment from './elements/Assignment'
+import AssignmentEditor from './elements/AssignmentEditor'
 import Exam from './elements/Exam'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
@@ -116,9 +116,9 @@ const App = createStackNavigator({
     ModuleList: {screen: ModuleList},
     LessonList: {screen: LessonList},
     TopicList: {screen: TopicList},
-    AssignmentList: {screen: AssignmentList},
     WidgetList: {screen: WidgetList},
     Assignment: {screen: Assignment},
+    AssignmentEditor: {screen: AssignmentEditor},
     ExamEditor: {screen: ExamEditor},
     Exam: {screen: Exam},
     QuestionList: {screen: QuestionList},

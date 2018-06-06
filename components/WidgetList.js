@@ -152,7 +152,7 @@ class WidgetList extends Component {
 
     return(
         <View style={{padding: 15}}>
-            <Text> Exam ID: {this.state.examId}</Text>
+            <Text> Topic ID: {this.state.topicId}</Text>
             <ButtonGroup
                 style={{alignItems: 'center', textAlign: 'center'}}
                 onPress={this.selectWidgetType}
@@ -179,7 +179,7 @@ class WidgetList extends Component {
                     (widget, index) => (
                         <ListItem
                             onPress={() => this.props.navigation
-                                .navigate("AssignmentList", {examId: widget.id})}
+                                .navigate("AssignmentEditor", {assignmentId: widget.id, topicId: })}
                             key={index}
                             subtitle={widget.description}
                             title={widget.title}
