@@ -11,11 +11,47 @@ class ExamEditor extends React.Component {
                 examId: 1,
                 exam:
                     {
-                        title: 'Old exam title',
-                        description: 'old exam description'
+                        title: '',
+                        description: ''
                     }
             }
 
+            this.updateExam = this.updateExam.bind(this);
+
+    }
+
+    updateExam = () => {
+
+        if (this.state.exam.title == "" ||
+            this.state.exam.description == "") {
+            alert("Some fields are empty !")
+        }
+        else {
+
+
+            alert("Exam updated Successfully !\n\nTitle: " + this.state.exam.title + "\n" +
+                "Desc: " + this.state.exam.description);
+
+            fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+this.state.examId,
+                {
+                    body: JSON.stringify({
+                        title: this.state.exam.title,
+                        description: this.state.exam.description,
+                        widgetOrder: this.state.exam.widgetOrder,
+                        widgetType: this.state.exam.widgetType
+                    }),
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'PUT'
+                })
+                .then(response => (response.json()))
+                .catch((error)=>{
+                    alert(error.message);
+                });
+
+            this.props.navigation
+                .navigate("QuestionList", {examId: this.state.examId})
+
+        }
     }
 
     updateForm(newState) {
@@ -29,6 +65,15 @@ class ExamEditor extends React.Component {
         this.setState({
             examId: examId
         })
+
+        fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId)
+            .then(response => (response.json()))
+            // .then((questions) => {alert("Fetched" + questions.length);})
+            .then(exam => this.setState({exam}))
+            .catch((error)=>{
+                alert(error.message);
+            });
+
     }
 
     render(){
@@ -37,7 +82,7 @@ class ExamEditor extends React.Component {
         <View>
             <View>
 
-                <FormLabel>Exam ID: {this.state.examId} </FormLabel>
+                <FormLabel>Exam ID: {this.state.examId}</FormLabel>
 
 
                 <FormLabel>Exam Title</FormLabel>
@@ -54,6 +99,10 @@ class ExamEditor extends React.Component {
                                     }
                             })
                     }/>
+                {this.state.exam.title == "" &&
+                <FormValidationMessage>
+                    Exam title cannot be empty
+                </FormValidationMessage>}
 
 
                 <FormLabel>Exam Description</FormLabel>
@@ -70,6 +119,11 @@ class ExamEditor extends React.Component {
                                     }
                             })
                     }/>
+                {this.state.exam.description == "" &&
+                <FormValidationMessage>
+                    Exam description is required
+                </FormValidationMessage>}
+
             </View>
 
 
@@ -79,7 +133,7 @@ class ExamEditor extends React.Component {
                            title="Update"
                            borderRadius={10}
                            borderWidth={2}
-                           onPress={() => {alert("Update Exam title/description !")}}
+                           onPress={this.updateExam}
                 />
 
             </View>
