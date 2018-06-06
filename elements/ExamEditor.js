@@ -48,6 +48,8 @@ class ExamEditor extends React.Component {
                     alert(error.message);
                 });
 
+            // OR THIS LINK ??
+
             this.props.navigation
                 .navigate("QuestionList", {examId: this.state.examId})
 
@@ -128,7 +130,7 @@ class ExamEditor extends React.Component {
 
 
             <View style={{ marginTop:20}} >
-                <Button	backgroundColor="green"
+                <Button	backgroundColor="blue"
                            color="white"
                            title="Update"
                            borderRadius={10}
@@ -139,7 +141,7 @@ class ExamEditor extends React.Component {
             </View>
 
             <View style={{ marginTop:10, marginBottom:30}}>
-                <Button	backgroundColor="red"
+                <Button	backgroundColor="gray"
                            color="white"
                            title="Cancel"
                            borderRadius={10}
