@@ -5,9 +5,6 @@ import { Divider } from 'react-native-elements'
 import FixedHeader from './elements/FixedHeader'
 import TextHeadings from './elements/TextHeadings'
 import Icons from './elements/Icons'
-import QuestionTypeButtonGroupChooser from './elements/QuestionTypeButtonGroupChooser'
-import QuestionTypePicker from './elements/QuestionTypePicker'
-import TrueFalseQuestionEditor from './elements/TrueFalseQuestionEditor'
 
 import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
@@ -23,6 +20,12 @@ import MultipleChoiceQuestionWidget from "./elements/MultipleChoiceQuestionWidge
 import EssayQuestionWidget from "./elements/EssayQuestionWidget"
 import FillInTheBlanksQuestionWidget from "./elements/FillInTheBlanksQuestionWidget"
 import TrueOrFalseQuestionWidget from "./elements/TrueOrFalseQuestionWidget"
+
+import MultipleChoiceQuestionWidgetEditor from "./elements/MultipleChoiceQuestionWidgetEditor"
+import EssayQuestionWidgetEditor from "./elements/EssayQuestionWidgetEditor"
+import FillInTheBlanksQuestionWidgetEditor from "./elements/FillInTheBlanksQuestionWidgetEditor"
+import TrueOrFalseQuestionWidgetEditor from "./elements/TrueOrFalseQuestionWidgetEditor"
+
 
 import { createStackNavigator } from 'react-navigation'
 
@@ -45,26 +48,6 @@ class Home extends Component {
                             onPress={() => this.props.navigation
                                 .navigate('CourseList') } />
 
-                    {/*<Button title="Go to Screen A"*/}
-                            {/*onPress={() => this.props.navigation*/}
-                                {/*.navigate('ScreenA') } />*/}
-
-                    {/*<Button title="Go to Screen B"*/}
-                            {/*onPress={() => this.props.navigation*/}
-                                {/*.navigate('ScreenB') } />*/}
-
-                    {/*<QuestionTypeButtonGroupChooser/>*/}
-                    {/*<QuestionTypePicker/>*/}
-                    {/*<Text>{"\n"}</Text>*/}
-                    {/*<TrueFalseQuestionEditor/>*/}
-                    <Text>{"\n"}</Text>
-                    {/*<Exam/>*/}
-
-                    {/*<View style={{padding:20}}>*/}
-                    {/*<TextHeadings/>*/}
-                    {/*<Divider/>*/}
-                    {/*<Icons/>*/}
-                    {/*</View>*/}
                 </View>
             </ScrollView>
         )
@@ -126,8 +109,10 @@ const App = createStackNavigator({
     FillInTheBlanksQuestionWidget: {screen: FillInTheBlanksQuestionWidget},
     MultipleChoiceQuestionWidget: {screen: MultipleChoiceQuestionWidget},
     EssayQuestionWidget: {screen: EssayQuestionWidget},
-    ScreenA: {screen: ScreenA},
-    ScreenB: {screen: ScreenB}
+    TrueOrFalseQuestionWidgetEditor: {screen: TrueOrFalseQuestionWidgetEditor},
+    FillInTheBlanksQuestionWidgetEditor: {screen: FillInTheBlanksQuestionWidgetEditor},
+    MultipleChoiceQuestionWidgetEditor: {screen: MultipleChoiceQuestionWidgetEditor},
+    EssayQuestionWidgetEditor: {screen: EssayQuestionWidgetEditor}
 });
 
 export default App;

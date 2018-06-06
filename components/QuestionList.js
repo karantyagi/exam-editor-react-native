@@ -14,6 +14,7 @@ class QuestionList extends Component {
       }
 
       this.addQuestion = this.addQuestion.bind(this);
+      this.updateQuestion = this.updateQuestion.bind(this);
       this.deleteQuestion = this.deleteQuestion.bind(this);
       this.iconName = this.iconName.bind(this);
   }
@@ -54,6 +55,27 @@ class QuestionList extends Component {
       }
 
   }
+
+    updateQuestion = () => {
+        // alert("Add Question: "+this.state.questionType );
+        if(this.state.questionType == "TF"){
+            this.props.navigation
+                .navigate("TrueOrFalseQuestionWidgetEditor", {examId: this.state.examId})
+        }
+        else if(this.state.questionType == "MC"){
+            this.props.navigation
+                .navigate("MultipleChoiceQuestionWidgetEditor", {examId: this.state.examId})
+        }
+        else if(this.state.questionType == "ES"){
+            this.props.navigation
+                .navigate("EssayQuestionWidgetEditor", {examId: this.state.examId})
+        }
+        else{
+            this.props.navigation
+                .navigate("FillInTheBlanksQuestionWidgetEditor", {examId: this.state.examId})
+        }
+
+    }
 
     deleteQuestion = (questionId) => {
 
