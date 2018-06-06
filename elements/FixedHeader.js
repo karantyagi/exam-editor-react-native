@@ -7,7 +7,7 @@ const FixedHeader = () => (
     leftComponent={{ 		icon: 'menu', color: '#fff' }}
     centerComponent={{	text: 'MY TITLE',
       style: { color: '#fff' } }}
-    rightComponent={{ icon: 'home', color: '#fff' , onPress: () => alert('Go to home')}}/>
+    rightComponent={{ icon: 'home', color: '#fff' , onPress: () => {}}}/>
 )
 
 export default FixedHeader

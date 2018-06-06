@@ -47,8 +47,8 @@ class TrueOrFalseQuestionWidget extends React.Component {
 
             alert("Question Added Successfully !\n\nTitle: " + this.state.question.title + "\n" +
                 "Desc: " + this.state.question.description + "\n" +
-                "Points: " + this.state.question.points +
-                "Is true ? : " + this.state.question.isTrue);
+                "Points: " + this.state.question.points + "\n" +
+                "Is true: " + this.state.question.isTrue);
 
             fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+this.state.examId+"/truefalse",
                 {
@@ -241,6 +241,7 @@ class TrueOrFalseQuestionWidget extends React.Component {
                                    borderWidth={2}
                                    onPush={()=> {}}
                         />
+
 
                     </View>
 

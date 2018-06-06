@@ -217,18 +217,24 @@ class Assignment extends React.Component {
 
                         <FormLabel>
                             Essay Answer</FormLabel>
-                        <FormInput
-                            borderWidth={1}
-                            borderRadius={14}/>
-                        {/*<TextInput*/}
-                            {/*multiline={true}*/}
-                            {/*// placeholder={'This would be an empty textarea where students can answer the essay question.' +*/}
-                            {/*// ' The textarea should be atleast 5 rows high, take the entire width of container, and be resizeable' +*/}
-                            {/*// 'from bottom right corner.'}*/}
-                            {/*numberOfLines={5}*/}
-                            {/*// onChangeText={(text) => this.setState({text})}*/}
-                            {/*// value={this.state.text}*/}
+                        {/*<FormInput*/}
+                            {/*// borderWidth={1}*/}
+                            {/*// borderRadius={14}*/}
                         {/*/>*/}
+                        <View style={{marginRight:15, marginLeft:15, paddingRight: 5, paddingBottom:5}}>
+                            <TextInput
+                                multiline={true}
+                                numberOfLines={5}
+                                onChangeText={() => {}}
+                                placeholder=
+                                    {
+                                        'This would be an empty textarea where students can answer the essay' +
+                                        ' question. The textarea should be atleast 5 rows high, take the entire ' +
+                                        'width of container, and be resizeable from bottom right corner.'}
+                                // value={this.state.text}
+                            />
+                        </View>
+
 
                         <FormLabel>Upload a file</FormLabel>
                         <FormInput

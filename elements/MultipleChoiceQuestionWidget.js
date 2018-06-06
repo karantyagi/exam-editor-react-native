@@ -1,6 +1,7 @@
 import React from 'react'
 import {View , Switch} from 'react-native'
 import {Button, CheckBox, FormInput, FormLabel, FormValidationMessage, Text} from 'react-native-elements'
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 class MultipleChoiceQuestionWidget extends React.Component {
     static navigationOptions = { title: "Multiple Choice Question"}
@@ -11,7 +12,8 @@ class MultipleChoiceQuestionWidget extends React.Component {
                 question: {
                     title: '',
                     description: '',
-                    points: 0
+                    points: 0,
+
                 },
                 examId: 1,
                 preview: false

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, ScrollView, Text, Button, Picker  } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
 import { Divider } from 'react-native-elements'
 
 import FixedHeader from './elements/FixedHeader'
@@ -44,18 +44,18 @@ class Home extends Component {
                             onPress={() => this.props.navigation
                                 .navigate('CourseList') } />
 
-                    <Button title="Go to Screen A"
-                            onPress={() => this.props.navigation
-                                .navigate('ScreenA') } />
+                    {/*<Button title="Go to Screen A"*/}
+                            {/*onPress={() => this.props.navigation*/}
+                                {/*.navigate('ScreenA') } />*/}
 
                     {/*<Button title="Go to Screen B"*/}
                             {/*onPress={() => this.props.navigation*/}
                                 {/*.navigate('ScreenB') } />*/}
 
-                    <QuestionTypeButtonGroupChooser/>
-                    <QuestionTypePicker/>
-                    <Text>{"\n"}</Text>
-                    <TrueFalseQuestionEditor/>
+                    {/*<QuestionTypeButtonGroupChooser/>*/}
+                    {/*<QuestionTypePicker/>*/}
+                    {/*<Text>{"\n"}</Text>*/}
+                    {/*<TrueFalseQuestionEditor/>*/}
                     <Text>{"\n"}</Text>
                     <Exam/>
 

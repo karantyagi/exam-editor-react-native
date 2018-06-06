@@ -3,15 +3,15 @@ import {View, Alert, ScrollView, Picker} from 'react-native'
 import {Text, ListItem, Button} from 'react-native-elements'
 import Icon from "react-native-elements/src/icons/Icon";
 
-const questions = [
-    {	title: 'Question 1', subtitle: 'Multiple choice',
-        icon: 'list'},
-    {	title: 'Question 2', subtitle: 'Fill-in the blanks',
-        icon: 'code'},
-    {	title: 'Question 3', subtitle: 'True or false',
-        icon: 'check'},
-    {	title: 'Question 4', subtitle: 'Essay',
-        icon: 'subject'}]
+// const questions = [
+//     {	title: 'Question 1', subtitle: 'Multiple choice',
+//         icon: 'list'},
+//     {	title: 'Question 2', subtitle: 'Fill-in the blanks',
+//         icon: 'code'},
+//     {	title: 'Question 3', subtitle: 'True or false',
+//         icon: 'check'},
+//     {	title: 'Question 4', subtitle: 'Essay',
+//         icon: 'subject'}]
 
 
 class QuestionList extends Component {
@@ -68,8 +68,7 @@ class QuestionList extends Component {
 
     deleteQuestion = (questionId) => {
 
-        alert("Deleted Question ID " + questionId);
-
+         alert("Deleted Question ID " + questionId);
         fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+questionId,
             {
                 method: 'DELETE'
@@ -86,19 +85,22 @@ class QuestionList extends Component {
 
 
   componentDidMount() {
+
+
     const {navigation} = this.props;
     const examId = navigation.getParam("examId")
       this.setState({
           examId: examId
       })
+      alert("mount fired")
     fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId+"/question")
         .then(response => (response.json()))
+        // .then((questions) => {alert("Fetched" + questions.length);})
       .then(questions => this.setState({questions}))
         .catch((error)=>{
             alert(error.message);
         });
   }
-
 
     componentWillReceiveProps(newProps)
     {
@@ -107,6 +109,7 @@ class QuestionList extends Component {
         this.setState({
             examId: examId
         })
+        alert("will receive fired")
         fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId+"/question")
             .then(response => (response.json()))
             .then(questions => this.setState({questions}))
@@ -122,7 +125,9 @@ class QuestionList extends Component {
             {/*<View style={{paddingLeft: 12, marginBottom: 1}}>*/}
                 {/*<Text style={{color:'gray'}}>Exam ID: {this.state.examId}  </Text>*/}
             {/*</View>*/}
-
+            <View>
+                <Text> Exam ID: {this.state.examId}</Text>
+            </View>
             <View style={{paddingLeft: 6, paddingTop: 5, marginTop: 3, alignItems:'center'}}>
                 <Text h3>Total Questions: {this.state.questions.length}  </Text>
             </View>

@@ -16,6 +16,8 @@ class WidgetList extends Component {
         moduleId: 1
     }
 
+
+
       this.selectWidgetType = this.selectWidgetType.bind(this);
       this.deleteExam = this.deleteExam.bind(this);
       this.deleteAssignment = this.deleteAssignment.bind(this);
@@ -150,7 +152,7 @@ class WidgetList extends Component {
 
     return(
         <View style={{padding: 15}}>
-
+            <Text> Exam ID: {this.state.examId}</Text>
             <ButtonGroup
                 style={{alignItems: 'center', textAlign: 'center'}}
                 onPress={this.selectWidgetType}
