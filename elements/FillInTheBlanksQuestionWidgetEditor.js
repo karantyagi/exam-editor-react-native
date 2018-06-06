@@ -8,6 +8,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
         super(props)
         this.state =
             {
+                questionId: 0,
                 question: {
                     title: '',
                     description: '',
@@ -18,7 +19,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                 preview: false
             }
         this.toggleSwitch = this.toggleSwitch.bind(this);
-        this.addQuestion = this.addQuestion.bind(this);
+        this.updateQuestion = this.updateQuestion.bind(this);
         this.parseDescription = this.parseDescription.bind(this);
     }
 
@@ -39,7 +40,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
 
     }
 
-    addQuestion = () => {
+    updateQuestion = () => {
 
         if (this.state.question.points === "" ||
             this.state.question.title === "" ||
@@ -55,7 +56,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                 "Points: " + this.state.question.points + "\n" +
                 "blank: " + this.state.question.blank);
 
-            fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+this.state.examId+"/blanks",
+            fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+this.state.questionId+"/fb",
                 {
                     body: JSON.stringify({
                         title: this.state.question.title,
@@ -65,7 +66,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                         subtitle: "Fill in the blanks"
                     }),
                     headers: { 'Content-Type': 'application/json' },
-                    method: 'POST'
+                    method: 'PUT'
                 })
                 .then(response => (response.json()))
                 .catch((error)=>{
@@ -80,20 +81,29 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
 
     componentDidMount() {
         const {navigation} = this.props;
-        const examId = navigation.getParam("examId")
+        const examId = navigation.getParam("examId");
+        const questionId = navigation.getParam("questionId");
         this.setState({
-            examId: examId
+            examId: examId,
+            questionId: questionId
         })
-    }
 
+        fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+questionId)
+            .then(response => (response.json()))
+            // .then((questions) => {alert("Fetched" + questions.length);})
+            .then(question => this.setState({question}))
+            .catch((error)=>{
+                alert(error.message);
+            });
+    }
     render() {
         return(
             <View style={{padding:15}}>
                 <Text h4 style={{textAlign: 'center',color: 'gray' }}>
-                    Add Fill in Blank Question</Text>
-                <Text style={{textAlign: 'center',color: 'gray' }}>
-                    Exam ID : {this.state.examId}
-                </Text>
+                    Update Fill in Blank Question</Text>
+
+                <FormLabel>Exam ID: {this.state.examId}</FormLabel>
+                <FormLabel>Question ID: {this.state.questionId}</FormLabel>
 
                 <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                     <Switch
@@ -101,14 +111,14 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                         onValueChange={this.toggleSwitch}
                         style={{marginBottom: 4}}/>
                     <Text style={{paddingTop: 3, color: 'gray', fontSize: 16 }}>
-                        {this.state.preview ? 'Preview On' : 'Preview Off'}
+                        {this.state.preview ? 'Preview' : 'Edit Mode'}
                     </Text>
                 </View>
 
                 {!this.state.preview &&
                 <View>
 
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>Question Title</FormLabel>
                     <FormInput
                         placeholder='Question title'
                         value={this.state.question.title}
@@ -158,7 +168,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                     <FormLabel>Points</FormLabel>
                     <FormInput
                         placeholder='Enter points for Question'
-                        value={this.state.question.points}
+                        value={this.state.question.points.toString()}
                         onChangeText={
                             text => this.updateForm(
                                 {question:
@@ -170,25 +180,25 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                                         }
                                 })
                         }/>
-                    {this.state.question.points === "" &&
+                    {this.state.question.points.toString() == "" &&
                     <FormValidationMessage>
                         Points are required
                     </FormValidationMessage>}
 
 
                     <View style={{ marginTop:20}} >
-                        <Button	backgroundColor="green"
+                        <Button	backgroundColor="blue"
                                    color="white"
                                    title="Save"
                                    borderRadius={10}
                                    borderWidth={2}
-                                   onPress={this.addQuestion}
+                                   onPress={this.updateQuestion}
                         />
 
                     </View>
 
                     <View style={{ marginTop:10, marginBottom:30}}>
-                        <Button	backgroundColor="red"
+                        <Button	backgroundColor="gray"
                                    color="white"
                                    title="Cancel"
                                    borderRadius={10}

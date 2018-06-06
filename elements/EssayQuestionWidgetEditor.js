@@ -91,7 +91,6 @@ class EssayQuestionWidgetEditor extends React.Component {
             .catch((error)=>{
                 alert(error.message);
             });
-
     }
 
     render() {
@@ -101,8 +100,8 @@ class EssayQuestionWidgetEditor extends React.Component {
                     <Text h4 style={{textAlign: 'center',color: 'gray' }}>
                         Update Essay Question</Text>
 
-                    <FormLabel>Exam ID: {this.state.examId}</FormLabel>
-                    <FormLabel>Question ID: {this.state.questionId}</FormLabel>
+                    {/*<FormLabel>Exam ID: {this.state.examId}</FormLabel>*/}
+                    {/*<FormLabel>Question ID: {this.state.questionId}</FormLabel>*/}
 
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                         <Switch

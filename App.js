@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, ScrollView, Text, Button } from 'react-native';
-import { Divider } from 'react-native-elements'
-
+import { View, ScrollView, Button } from 'react-native';
 import FixedHeader from './elements/FixedHeader'
-import TextHeadings from './elements/TextHeadings'
-import Icons from './elements/Icons'
 
 import CourseList from './components/CourseList'
 import ModuleList from './components/ModuleList'
@@ -26,9 +22,7 @@ import EssayQuestionWidgetEditor from "./elements/EssayQuestionWidgetEditor"
 import FillInTheBlanksQuestionWidgetEditor from "./elements/FillInTheBlanksQuestionWidgetEditor"
 import TrueOrFalseQuestionWidgetEditor from "./elements/TrueOrFalseQuestionWidgetEditor"
 
-
 import { createStackNavigator } from 'react-navigation'
-
 
 class Home extends Component {
     static navigationOptions = {
@@ -47,7 +41,6 @@ class Home extends Component {
                     <Button title="Courses"
                             onPress={() => this.props.navigation
                                 .navigate('CourseList') } />
-
                 </View>
             </ScrollView>
         )
@@ -55,43 +48,6 @@ class Home extends Component {
 
 }
 
-
-
-class ScreenA extends React.Component {
-    static navigationOptions = {title: "Screen A"}
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            <View>
-                <Text h1>Screen A</Text>
-                <Button title="Go Home"
-                        onPress={() =>this.props
-                            .navigation
-                            .goBack()} />
-            </View>
-        )
-    }
-}
-
-class ScreenB extends React.Component {
-    static navigationOptions = {title: "Screen B"}
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            <View>
-                <Text h1>Screen B</Text>
-                <Button title="Go Home"
-                        onPress={() =>this.props
-                            .navigation
-                            .goBack()} />
-            </View>
-        )
-    }
-}
 
 const App = createStackNavigator({
     Home: {screen: Home},
