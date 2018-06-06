@@ -15,6 +15,7 @@ import ModuleList from './components/ModuleList'
 import LessonList from './components/LessonList'
 import TopicList from './components/TopicList'
 import AssignmentList from './components/AssignmentList'
+import ExamEditor from './elements/ExamEditor'
 import Assignment from './elements/Assignment'
 import WidgetList from './components/WidgetList'
 import QuestionList from './components/QuestionList'
@@ -57,7 +58,7 @@ class Home extends Component {
                     {/*<Text>{"\n"}</Text>*/}
                     {/*<TrueFalseQuestionEditor/>*/}
                     <Text>{"\n"}</Text>
-                    <Exam/>
+                    {/*<Exam/>*/}
 
                     {/*<View style={{padding:20}}>*/}
                     {/*<TextHeadings/>*/}
@@ -118,6 +119,7 @@ const App = createStackNavigator({
     AssignmentList: {screen: AssignmentList},
     WidgetList: {screen: WidgetList},
     Assignment: {screen: Assignment},
+    ExamEditor: {screen: ExamEditor},
     QuestionList: {screen: QuestionList},
     TrueOrFalseQuestionWidget: {screen: TrueOrFalseQuestionWidget},
     FillInTheBlanksQuestionWidget: {screen: FillInTheBlanksQuestionWidget},

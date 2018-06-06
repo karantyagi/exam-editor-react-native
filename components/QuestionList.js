@@ -4,7 +4,7 @@ import {Text, ListItem, Button} from 'react-native-elements'
 import Icon from "react-native-elements/src/icons/Icon";
 
 class QuestionList extends Component {
-  static navigationOptions = {title: 'Exam Questions'}
+  static navigationOptions = {title: 'Exam Question Editor'}
   constructor(props) {
     super(props)
       this.state = {
@@ -117,6 +117,20 @@ class QuestionList extends Component {
             {/*<View>*/}
                 {/*<Text> Exam ID: {this.state.examId}</Text>*/}
             {/*</View>*/}
+
+            <View style={{ marginTop:10, marginBottom:5}}>
+                <Button	backgroundColor="orange"
+                           color="white"
+                           title="Edit exam (title/description)"
+                           borderRadius={10}
+                           borderWidth={2}
+                           onPress={() => {
+                               this.props.navigation
+                                   .navigate("ExamEditor", {examId: this.state.examId})
+                           }}
+                />
+            </View>
+
             <View style={{paddingLeft: 6, paddingTop: 5, marginTop: 3, alignItems:'center'}}>
                 <Text h3>Total Questions: {this.state.questions.length}  </Text>
             </View>
@@ -134,7 +148,7 @@ class QuestionList extends Component {
             </View>
 
           <View style={{padding: 4, marginTop:4, marginLeft: 3}}>
-                <Button	backgroundColor="red"
+                <Button	backgroundColor="green"
                            color="white"
                            title="Add Question"
                            borderRadius={10}
