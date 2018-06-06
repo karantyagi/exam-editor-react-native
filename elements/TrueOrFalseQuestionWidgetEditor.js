@@ -14,6 +14,7 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
         super(props)
         this.state =
             {
+                questionId: 0,
                 question: {
                     title: '',
                     description: '',
@@ -25,8 +26,7 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
             }
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
-        this.addQuestion = this.addQuestion.bind(this);
-        // this.updateForm = this.updateForm.bind(this);
+        this.updateQuestion = this.updateQuestion.bind(this);
     }
 
     toggleSwitch = () => {
@@ -35,7 +35,7 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
         }));
     }
 
-    addQuestion = () => {
+    updateQuestion = () => {
 
         if (this.state.question.points === "" ||
             this.state.question.title === "" ||
@@ -44,31 +44,30 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
         }
         else {
 
-
-            alert("Question Added Successfully !\n\nTitle: " + this.state.question.title + "\n" +
+            alert("Question Updated  Successfully !\n\nTitle: " + this.state.question.title + "\n" +
                 "Desc: " + this.state.question.description + "\n" +
                 "Points: " + this.state.question.points + "\n" +
                 "Is true: " + this.state.question.isTrue);
 
-            fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+this.state.examId+"/truefalse",
-                {
-                    body: JSON.stringify({
-                        title: this.state.question.title,
-                        description: this.state.question.description,
-                        points: parseInt(this.state.question.points),
-                        isTrue: this.state.question.isTrue,
-                        subtitle: "True or False"
-                    }),
-                    headers: { 'Content-Type': 'application/json' },
-                    method: 'POST'
-                })
-                .then(response => (response.json()))
-                .catch((error)=>{
-                    alert(error.message);
-                });
-
-            this.props.navigation
-                .navigate("QuestionList", {examId: this.state.examId})
+            // fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+this.state.questionId+"/tf",
+            //     {
+            //         body: JSON.stringify({
+            //             title: this.state.question.title,
+            //             description: this.state.question.description,
+            //             points: parseInt(this.state.question.points.toString()),
+            //             isTrue: this.state.question.isTrue,
+            //             subtitle: "True or False"
+            //         }),
+            //         headers: { 'Content-Type': 'application/json' },
+            //         method: 'PUT'
+            //     })
+            //     .then(response => (response.json()))
+            //     .catch((error)=>{
+            //         alert(error.message);
+            //     });
+            //
+            // this.props.navigation
+            //     .navigate("QuestionList", {examId: this.state.examId})
 
         }
     }
@@ -79,13 +78,22 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
     }
 
 
-
     componentDidMount() {
         const {navigation} = this.props;
-        const examId = navigation.getParam("examId")
+        const examId = navigation.getParam("examId");
+        const questionId = navigation.getParam("questionId");
         this.setState({
-            examId: examId
+            examId: examId,
+            questionId: questionId
         })
+
+        fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+questionId)
+            .then(response => (response.json()))
+            // .then((questions) => {alert("Fetched" + questions.length);})
+            .then(question => this.setState({question}))
+            .catch((error)=>{
+                alert(error.message);
+            });
     }
 
     render() {
@@ -93,10 +101,10 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
             <ScrollView>
                 <View style={{padding:15}}>
                     <Text h4 style={{textAlign: 'center',color: 'gray' }}>
-                        Add True-False Question</Text>
-                    <Text style={{textAlign: 'center',color: 'gray' }}>
-                        Exam ID : {this.state.examId}
-                    </Text>
+                        Update True-False Question</Text>
+
+                    <FormLabel>Exam ID: {this.state.examId}</FormLabel>
+                    <FormLabel>Question ID: {this.state.questionId}</FormLabel>
 
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                         <Switch
@@ -104,14 +112,14 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
                             onValueChange={this.toggleSwitch}
                             style={{marginBottom: 4}}/>
                         <Text style={{paddingTop: 3, color: 'gray', fontSize: 16 }}>
-                            {this.state.preview ? 'Preview On' : 'Preview Off'}
+                            {this.state.preview ? 'Preview' : 'Edit Mode'}
                         </Text>
                     </View>
 
                     {!this.state.preview &&
                     <View>
 
-                        <FormLabel>Title</FormLabel>
+                        <FormLabel>Question Title</FormLabel>
                         <FormInput
                             placeholder='Question title'
                             value={this.state.question.title}
@@ -157,7 +165,7 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
                         <FormLabel>Points</FormLabel>
                         <FormInput
                             placeholder='Enter points for Question'
-                            value={this.state.question.points}
+                            value={this.state.question.points.toString()}
                             onChangeText={
                                 text => this.updateForm(
                                     {question:
@@ -169,7 +177,7 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
                                             }
                                     })
                             }/>
-                        {this.state.question.points === "" &&
+                        {this.state.question.points.toString() == "" &&
                         <FormValidationMessage>
                             Points are required
                         </FormValidationMessage>}
@@ -189,19 +197,19 @@ class TrueOrFalseQuestionWidgetEditor extends React.Component {
 
 
                         <View style={{ marginTop:20}} >
-                            <Button	backgroundColor="green"
+                            <Button	backgroundColor="blue"
                                        color="white"
                                        title="Save"
                                        borderRadius={10}
                                        borderWidth={2}
-                                       onPress={this.addQuestion}
+                                       onPress={this.updateQuestion}
                             />
 
                         </View>
 
                         <View style={{ marginTop:10, marginBottom:30}}>
                             <Button	backgroundColor="red"
-                                       color="white"
+                                       color="gray"
                                        title="Cancel"
                                        borderRadius={10}
                                        borderWidth={2}
