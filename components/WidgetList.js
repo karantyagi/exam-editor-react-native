@@ -26,7 +26,7 @@ class WidgetList extends Component {
 
   deleteAssignment = (aId) => {
 
-      alert("Deleted Assignment ID " + aId);
+      // alert("Deleted Assignment ID " + aId);
 
       fetch("https://kt-course-manager-server.herokuapp.com/api/assignment/"+aId,
           {
@@ -44,7 +44,7 @@ class WidgetList extends Component {
 
     deleteExam = (examId) => {
 
-        alert(" Deleted Exam ID:" + examId);
+        // alert(" Deleted Exam ID:" + examId);
 
         fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId,
             {

@@ -43,11 +43,9 @@ class Assignment extends React.Component {
             alert("Some fields are empty !")
         }
         else{
-
-
-            alert("Assignment Added Successfully !\n\nTitle: "+this.state.assignment.title+"\n"+
-                "Desc: "+this.state.assignment.description+"\n"+
-                "Points: "+this.state.assignment.points);
+            // alert("Assignment Added Successfully !\n\nTitle: "+this.state.assignment.title+"\n"+
+            //     "Desc: "+this.state.assignment.description+"\n"+
+            //     "Points: "+this.state.assignment.points);
 
             fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/assignment",
                 {
