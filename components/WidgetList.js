@@ -203,7 +203,7 @@ class WidgetList extends Component {
         (widget, index) => (
           <ListItem
             onPress={() => this.props.navigation
-              .navigate("QuestionList", {examId: widget.id})}
+              .navigate("QuestionList", {examId: widget.id, topicId: this.state.topicId})}
             key={index}
             subtitle={widget.description}
             title={widget.title}

@@ -36,8 +36,8 @@ class Exam extends React.Component {
         else{
 
 
-            alert("Exam Added Successfully !\n\nTitle: "+this.state.exam.title+"\n"+
-                "Desc: "+this.state.exam.description);
+            // alert("Exam Added Successfully !\n\nTitle: "+this.state.exam.title+"\n"+
+            //     "Desc: "+this.state.exam.description);
 
             fetch("https://kt-course-manager-server.herokuapp.com/api/topic/"+this.state.topicId+"/exam",
                 {
@@ -73,6 +73,8 @@ class Exam extends React.Component {
         return(
             <ScrollView>
                     <View style={{marginTop:15}}>
+                        <FormLabel> TopicId : {this.state.topicId}</FormLabel>
+
                         <FormLabel>Exam Title</FormLabel>
                         <FormInput
                             placeholder='Exam title'

@@ -8,6 +8,7 @@ class QuestionList extends Component {
   constructor(props) {
     super(props)
       this.state = {
+          topicId:1,
           questions: [],
           examId: 1,
           questionType: "MC"
@@ -99,9 +100,11 @@ class QuestionList extends Component {
 
 
     const {navigation} = this.props;
-    const examId = navigation.getParam("examId")
+      const examId = navigation.getParam("examId")
+      const topicId = navigation.getParam("topicId")
       this.setState({
-          examId: examId
+          examId: examId,
+          topicId: topicId
       })
       // alert("mount fired")
     fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId+"/question")
@@ -117,8 +120,10 @@ class QuestionList extends Component {
     {
         const {navigation} = newProps;
         const examId = navigation.getParam("examId")
+        const topicId = navigation.getParam("topicId")
         this.setState({
-            examId: examId
+            examId: examId,
+            topicId: topicId
         })
         // alert("will receive fired")
         fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId+"/question")
@@ -148,7 +153,7 @@ class QuestionList extends Component {
                            borderWidth={2}
                            onPress={() => {
                                this.props.navigation
-                                   .navigate("ExamEditor", {examId: this.state.examId})
+                                   .navigate("ExamEditor", {examId: this.state.examId, topicId: this.state.topicId})
                            }}
                 />
             </View>

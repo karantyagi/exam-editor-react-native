@@ -9,6 +9,7 @@ class ExamEditor extends React.Component {
         this.state =
             {
                 examId: 1,
+                topicId: 1,
                 exam:
                     {
                         title: '',
@@ -51,7 +52,7 @@ class ExamEditor extends React.Component {
             // OR THIS LINK ??
 
             this.props.navigation
-                .navigate("QuestionList", {examId: this.state.examId})
+                .navigate("WidgetList", {topicId: this.state.topicId, typeWidget: 'Exam'})
 
         }
     }
@@ -64,8 +65,10 @@ class ExamEditor extends React.Component {
     componentDidMount() {
         const {navigation} = this.props;
         const examId = navigation.getParam("examId")
+        const topicId = navigation.getParam("topicId")
         this.setState({
-            examId: examId
+            examId: examId,
+            topicId : topicId
         })
 
         fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+examId)
