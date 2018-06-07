@@ -10,6 +10,7 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
         super(props)
         this.state =
             {
+                questionId: 0,
                 question: {
                     title: '',
                     description: '',
@@ -25,10 +26,8 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
             }
 
         this.toggleSwitch = this.toggleSwitch.bind(this);
-        this.addQuestion = this.addQuestion.bind(this);
+        this.updateQuestion = this.updateQuestion.bind(this);
     }
-
-
 
     updateForm(newState) {
         this.setState(newState)
@@ -41,7 +40,7 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
     }
 
 
-    addQuestion = () => {
+    updateQuestion = () => {
 
         if (this.state.question.points === "" ||
             this.state.question.choiceA === "" ||
@@ -64,12 +63,12 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
                 "OptionA: " + this.state.question.choiceD + "\n\n" +
                 "Correct Answer: " + this.state.question.correctChoice );
 
-            fetch("https://kt-course-manager-server.herokuapp.com/api/exam/"+this.state.examId+"/choice",
+            fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+this.state.questionId+"/choice",
                 {
                     body: JSON.stringify({
                         title: this.state.question.title,
                         description: this.state.question.description,
-                        points: parseInt(this.state.question.points),
+                        points: parseInt(this.state.question.points.toString()),
                         choiceA: this.state.question.choiceA,
                         choiceB: this.state.question.choiceB,
                         choiceC: this.state.question.choiceC,
@@ -78,7 +77,7 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
                         subtitle: "Multiple choice"
                     }),
                     headers: { 'Content-Type': 'application/json' },
-                    method: 'POST'
+                    method: 'PUT'
                 })
                 .then(response => (response.json()))
                 .catch((error)=>{
@@ -94,29 +93,37 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
 
     componentDidMount() {
         const {navigation} = this.props;
-        const examId = navigation.getParam("examId")
+        const examId = navigation.getParam("examId");
+        const questionId = navigation.getParam("questionId");
         this.setState({
-            examId: examId
+            examId: examId,
+            questionId: questionId
         })
+
+        fetch("https://kt-course-manager-server.herokuapp.com/api/question/"+questionId)
+            .then(response => (response.json()))
+            // .then((questions) => {alert("Fetched" + questions.length);})
+            .then(question => this.setState({question}))
+            .catch((error)=>{
+                alert(error.message);
+            });
     }
 
     render() {
         return(
             <ScrollView>
                 <View style={{padding:15}}>
+                    <View>
                     <Text h4 style={{textAlign: 'center',color: 'gray' }}>
-                        Add Multiple Choice Question</Text>
-                    <Text style={{textAlign: 'center',color: 'gray' }}>
-                        Exam ID : {this.state.examId}
-                    </Text>
-
+                        Update Multiple Choice Question</Text>
+                    </View>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                         <Switch
                             value = {this.state.preview}
                             onValueChange={this.toggleSwitch}
                             style={{marginBottom: 4}}/>
                         <Text style={{paddingTop: 3, color: 'gray', fontSize: 16 }}>
-                            {this.state.preview ? 'Preview On' : 'Preview Off'}
+                            {this.state.preview ? 'Preview' : 'Edit Mode'}
                         </Text>
                     </View>
 
@@ -177,7 +184,7 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
                         <FormLabel>Points</FormLabel>
                         <FormInput
                             placeholder='Enter points for Question'
-                            value={this.state.question.points}
+                            value={this.state.question.points.toString()}
                             onChangeText={
                                 text => this.updateForm(
                                     {question:
@@ -193,159 +200,159 @@ class MultipleChoiceQuestionWidgetEditor extends React.Component {
                                             }
                                     })
                             }/>
-                        {this.state.question.points === "" &&
+                        {this.state.question.points.toString() == "" &&
                         <FormValidationMessage>
                             Points are required
                         </FormValidationMessage>}
 
 
 
-                        <FormLabel>Option A</FormLabel>
-                        <FormInput
-                            placeholder='Enter Option A for Question'
-                            value={this.state.question.choiceA}
-                            onChangeText={
-                                text => this.updateForm(
-                                    {question:
-                                            {
-                                                title: this.state.question.title,
-                                                description: this.state.question.description,
-                                                points: this.state.question.points,
-                                                choiceA: text,
-                                                choiceB: this.state.question.choiceB,
-                                                choiceC: this.state.question.choiceC,
-                                                choiceD: this.state.question.choiceD,
-                                                correctChoice: this.state.question.correctChoice
-                                            }
-                                    })
-                            }/>
-                        {this.state.question.choiceA === "" &&
-                        <FormValidationMessage>
-                            Option A is required
-                        </FormValidationMessage>}
+                        {/*<FormLabel>Option A</FormLabel>*/}
+                        {/*<FormInput*/}
+                            {/*placeholder='Enter Option A for Question'*/}
+                            {/*value={this.state.question.choiceA}*/}
+                            {/*onChangeText={*/}
+                                {/*text => this.updateForm(*/}
+                                    {/*{question:*/}
+                                            {/*{*/}
+                                                {/*title: this.state.question.title,*/}
+                                                {/*description: this.state.question.description,*/}
+                                                {/*points: this.state.question.points,*/}
+                                                {/*choiceA: text,*/}
+                                                {/*choiceB: this.state.question.choiceB,*/}
+                                                {/*choiceC: this.state.question.choiceC,*/}
+                                                {/*choiceD: this.state.question.choiceD,*/}
+                                                {/*correctChoice: this.state.question.correctChoice*/}
+                                            {/*}*/}
+                                    {/*})*/}
+                            {/*}/>*/}
+                        {/*{this.state.question.choiceA === "" &&*/}
+                        {/*<FormValidationMessage>*/}
+                            {/*Option A is required*/}
+                        {/*</FormValidationMessage>}*/}
 
-                        <FormLabel>Option B</FormLabel>
-                        <FormInput
-                            placeholder='Enter Option B for Question'
-                            value={this.state.question.choiceB}
-                            onChangeText={
-                                text => this.updateForm(
-                                    {question:
-                                            {
-                                                title: this.state.question.title,
-                                                description: this.state.question.description,
-                                                points: this.state.question.points,
-                                                choiceB: text,
-                                                choiceA: this.state.question.choiceA,
-                                                choiceC: this.state.question.choiceC,
-                                                choiceD: this.state.question.choiceD,
-                                                correctChoice: this.state.question.correctChoice
-                                            }
-                                    })
-                            }/>
-                        {this.state.question.choiceB === "" &&
-                        <FormValidationMessage>
-                            Option B is required
-                        </FormValidationMessage>}
-
-
-                        <FormLabel>Option C</FormLabel>
-                        <FormInput
-                            placeholder='Enter Option C for Question'
-                            value={this.state.question.choiceC}
-                            onChangeText={
-                                text => this.updateForm(
-                                    {question:
-                                            {
-                                                title: this.state.question.title,
-                                                description: this.state.question.description,
-                                                points: this.state.question.points,
-                                                choiceC: text,
-                                                choiceA: this.state.question.choiceA,
-                                                choiceB: this.state.question.choiceB,
-                                                choiceD: this.state.question.choiceD,
-                                                correctChoice: this.state.question.correctChoice
-                                            }
-                                    })
-                            }/>
-                        {this.state.question.choiceC === "" &&
-                        <FormValidationMessage>
-                            Option C is required
-                        </FormValidationMessage>}
+                        {/*<FormLabel>Option B</FormLabel>*/}
+                        {/*<FormInput*/}
+                            {/*placeholder='Enter Option B for Question'*/}
+                            {/*value={this.state.question.choiceB}*/}
+                            {/*onChangeText={*/}
+                                {/*text => this.updateForm(*/}
+                                    {/*{question:*/}
+                                            {/*{*/}
+                                                {/*title: this.state.question.title,*/}
+                                                {/*description: this.state.question.description,*/}
+                                                {/*points: this.state.question.points,*/}
+                                                {/*choiceB: text,*/}
+                                                {/*choiceA: this.state.question.choiceA,*/}
+                                                {/*choiceC: this.state.question.choiceC,*/}
+                                                {/*choiceD: this.state.question.choiceD,*/}
+                                                {/*correctChoice: this.state.question.correctChoice*/}
+                                            {/*}*/}
+                                    {/*})*/}
+                            {/*}/>*/}
+                        {/*{this.state.question.choiceB === "" &&*/}
+                        {/*<FormValidationMessage>*/}
+                            {/*Option B is required*/}
+                        {/*</FormValidationMessage>}*/}
 
 
-                        <FormLabel>Option D</FormLabel>
-                        <FormInput
-                            placeholder='Enter Option D for Question'
-                            value={this.state.question.choiceD}
-                            onChangeText={
-                                text => this.updateForm(
-                                    {question:
-                                            {
-                                                title: this.state.question.title,
-                                                description: this.state.question.description,
-                                                points: this.state.question.points,
-                                                choiceD: text,
-                                                choiceA: this.state.question.choiceA,
-                                                choiceC: this.state.question.choiceC,
-                                                choiceB: this.state.question.choiceB,
-                                                correctChoice: this.state.question.correctChoice
-                                            }
-                                    })
-                            }/>
-                        {this.state.question.choiceD === "" &&
-                        <FormValidationMessage>
-                            Option D is required
-                        </FormValidationMessage>}
+                        {/*<FormLabel>Option C</FormLabel>*/}
+                        {/*<FormInput*/}
+                            {/*placeholder='Enter Option C for Question'*/}
+                            {/*value={this.state.question.choiceC}*/}
+                            {/*onChangeText={*/}
+                                {/*text => this.updateForm(*/}
+                                    {/*{question:*/}
+                                            {/*{*/}
+                                                {/*title: this.state.question.title,*/}
+                                                {/*description: this.state.question.description,*/}
+                                                {/*points: this.state.question.points,*/}
+                                                {/*choiceC: text,*/}
+                                                {/*choiceA: this.state.question.choiceA,*/}
+                                                {/*choiceB: this.state.question.choiceB,*/}
+                                                {/*choiceD: this.state.question.choiceD,*/}
+                                                {/*correctChoice: this.state.question.correctChoice*/}
+                                            {/*}*/}
+                                    {/*})*/}
+                            {/*}/>*/}
+                        {/*{this.state.question.choiceC === "" &&*/}
+                        {/*<FormValidationMessage>*/}
+                            {/*Option C is required*/}
+                        {/*</FormValidationMessage>}*/}
 
 
+                        {/*<FormLabel>Option D</FormLabel>*/}
+                        {/*<FormInput*/}
+                            {/*placeholder='Enter Option D for Question'*/}
+                            {/*value={this.state.question.choiceD}*/}
+                            {/*onChangeText={*/}
+                                {/*text => this.updateForm(*/}
+                                    {/*{question:*/}
+                                            {/*{*/}
+                                                {/*title: this.state.question.title,*/}
+                                                {/*description: this.state.question.description,*/}
+                                                {/*points: this.state.question.points,*/}
+                                                {/*choiceD: text,*/}
+                                                {/*choiceA: this.state.question.choiceA,*/}
+                                                {/*choiceC: this.state.question.choiceC,*/}
+                                                {/*choiceB: this.state.question.choiceB,*/}
+                                                {/*correctChoice: this.state.question.correctChoice*/}
+                                            {/*}*/}
+                                    {/*})*/}
+                            {/*}/>*/}
+                        {/*{this.state.question.choiceD === "" &&*/}
+                        {/*<FormValidationMessage>*/}
+                            {/*Option D is required*/}
+                        {/*</FormValidationMessage>}*/}
 
 
 
 
-                        <View style={{marginLeft :10,marginTop:10, alignItems:'flex-start'}}>
-                            <RadioForm
-                                radio_props={[
-                                    {label: 'A) '+ this.state.question.choiceA, value: 'A' },
-                                    {label: 'B) '+ this.state.question.choiceB, value: 'B' },
-                                    {label: 'C) '+ this.state.question.choiceC, value: 'C' },
-                                    {label: 'D) '+ this.state.question.choiceD, value: 'D' }
-                                ]}
-                                initial={0}
-                                // buttonColor={'#50C900'}
-                                onPress={(answer) => this.updateForm({
-                                    question:
-                                        {
-                                            title: this.state.question.title,
-                                            description: this.state.question.description,
-                                            points: this.state.question.points,
-                                            choiceA: this.state.question.choiceA,
-                                            choiceB: this.state.question.choiceB,
-                                            choiceC: this.state.question.choiceC,
-                                            choiceD: this.state.question.choiceD,
-                                            correctChoice: answer
-                                        }})}
-                            />
-                        </View>
 
-                        <View style={{marginTop:8, marginRight:15}}>
-                            <Text style={{color:'gray'}}> Answer: {this.state.question.correctChoice}</Text>
-                        </View>
+
+                        {/*<View style={{marginLeft :10,marginTop:10, alignItems:'flex-start'}}>*/}
+                            {/*<RadioForm*/}
+                                {/*radio_props={[*/}
+                                    {/*{label: 'A) '+ this.state.question.choiceA, value: 'A' },*/}
+                                    {/*{label: 'B) '+ this.state.question.choiceB, value: 'B' },*/}
+                                    {/*{label: 'C) '+ this.state.question.choiceC, value: 'C' },*/}
+                                    {/*{label: 'D) '+ this.state.question.choiceD, value: 'D' }*/}
+                                {/*]}*/}
+                                {/*initial={0}*/}
+                                {/*// buttonColor={'#50C900'}*/}
+                                {/*onPress={(answer) => this.updateForm({*/}
+                                    {/*question:*/}
+                                        {/*{*/}
+                                            {/*title: this.state.question.title,*/}
+                                            {/*description: this.state.question.description,*/}
+                                            {/*points: this.state.question.points,*/}
+                                            {/*choiceA: this.state.question.choiceA,*/}
+                                            {/*choiceB: this.state.question.choiceB,*/}
+                                            {/*choiceC: this.state.question.choiceC,*/}
+                                            {/*choiceD: this.state.question.choiceD,*/}
+                                            {/*correctChoice: answer*/}
+                                        {/*}})}*/}
+                            {/*/>*/}
+                        {/*</View>*/}
+
+                        {/*<View style={{marginTop:8, marginRight:15}}>*/}
+                            {/*<Text style={{color:'gray'}}> Answer: {this.state.question.correctChoice}</Text>*/}
+                        {/*</View>*/}
 
 
                         <View style={{ marginTop:20}} >
-                            <Button	backgroundColor="green"
+                            <Button	backgroundColor="blue"
                                        color="white"
                                        title="Save"
                                        borderRadius={10}
                                        borderWidth={2}
-                                       onPress={this.addQuestion}
+                                       onPress={this.updateQuestion}
                             />
 
                         </View>
 
                         <View style={{ marginTop:10, marginBottom:30}}>
-                            <Button	backgroundColor="red"
+                            <Button	backgroundColor="gray"
                                        color="white"
                                        title="Cancel"
                                        borderRadius={10}

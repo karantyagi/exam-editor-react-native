@@ -61,7 +61,7 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                     body: JSON.stringify({
                         title: this.state.question.title,
                         description: this.state.question.description,
-                        points: parseInt(this.state.question.points),
+                        points: parseInt(this.state.question.points.toString()),
                         blank: this.state.question.blank,
                         subtitle: "Fill in the blanks"
                     }),
@@ -102,8 +102,8 @@ class FillInTheBlanksQuestionWidgetEditor extends React.Component {
                 <Text h4 style={{textAlign: 'center',color: 'gray' }}>
                     Update Fill in Blank Question</Text>
 
-                <FormLabel>Exam ID: {this.state.examId}</FormLabel>
-                <FormLabel>Question ID: {this.state.questionId}</FormLabel>
+                {/*<FormLabel>Exam ID: {this.state.examId}</FormLabel>*/}
+                {/*<FormLabel>Question ID: {this.state.questionId}</FormLabel>*/}
 
                 <View style={{ flexDirection: 'row', alignItems: 'flex-start', paddingLeft: 20, paddingTop: 15}}>
                     <Switch
